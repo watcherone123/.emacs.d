@@ -1,0 +1,5 @@
+This is my own emacs config,it's keybinds is similar to spacemacs!
+* How to use this config
+#+BEGIN_EXAMPLE
+git clone https://github.com/watcherone123/.emacs.d.git
+#+END_EXAMPLE
