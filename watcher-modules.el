@@ -5,6 +5,8 @@
 ;;;###autoload
 (require 'watcher-dired)
 ;;;###autoload
+(require 'watcher-better-edit)
+;;;###autoload
 (require 'watcher-company)
 ;;;###autoload
 (require 'watcher-projectile)
