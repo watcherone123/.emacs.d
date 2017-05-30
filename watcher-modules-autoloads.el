@@ -3,8 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "watcher-modules" "watcher-modules.el" (22828
-;;;;;;  12712 0 0))
+;;;### (autoloads nil "watcher-modules" "watcher-modules.el" (22829
+;;;;;;  24663 0 0))
 ;;; Generated autoloads from watcher-modules.el
 
 (require 'watcher-ivy)
@@ -12,6 +12,8 @@
 (require 'watcher-evil)
 
 (require 'watcher-dired)
+
+(require 'watcher-better-edit)
 
 (require 'watcher-company)
 
