@@ -1,21 +1,22 @@
 (use-package window-numbering
   :ensure t
-  :config
+  :defer t
+  :commands (window-numbering-mode)
+  :init
   (window-numbering-mode))
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :init
-
   (load-theme watcher-theme t)
 
   )
-
-(use-package highlight-parentheses 
+(use-package highlight-parentheses
   :diminish highlight-parentheses-mode
   :ensure t
-  :config
-    (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
   )
 
 (use-package spaceline
@@ -23,10 +24,14 @@
 
 (use-package spaceline-config
   :ensure spaceline
-  :config
+  :defer t
+  :commands (spaceline-spacemacs-theme)
+  :init
+  (spaceline-spacemacs-theme)
 
+  :config
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-  (spaceline-spacemacs-theme))
+  )
 
 (use-package smartparens-config
   :defer 0.1
@@ -54,7 +59,9 @@
 
 (use-package popwin
   :ensure t
-  :config
+  :defer t
+  :commands (popwin-mode)
+  :init
   (popwin-mode 1))
 ;;配置窗口标题
 (setq frame-title-format

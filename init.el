@@ -6,6 +6,7 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+
 (setq user-full-name "watcher"
       user-mail-address "watcherone123@gmail.com")
 
@@ -34,7 +35,7 @@
 
 (defvar watcher-savefile-dir (expand-file-name "savefile" watcher-dir)
   "This folder stores all the automatically generated save/history-files.")
-(defvar watcher-modules-file (expand-file-name "watcher-modules.el" watcher-dir)
+(defvar watcher-modules-file (expand-file-name "watcher-modules-autoloads.el" watcher-dir)
   "This files contains a list of modules that will be loaded by Watcher.")
 
 
@@ -74,7 +75,8 @@
 (require 'watcher-better-defaults)
 (require 'watcher-ui)
 (require 'watcher-misc)
-(require 'watcher-func)
+;; (require 'watcher-func)
+(require 'watcher-func-autoloads)
 (require 'watcher-keybindings)
 
 (message "Loading Watcher's modules...")

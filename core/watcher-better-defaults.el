@@ -26,22 +26,27 @@
 
 ;; Charset 设置
 
-(set-language-environment "Chinese-GB")
-(set-buffer-file-coding-system 'utf-8-unix)
-(set-clipboard-coding-system 'utf-8-unix)
-(set-file-name-coding-system 'utf-8-unix)
-(set-keyboard-coding-system 'utf-8-unix)
-(set-next-selection-coding-system 'utf-8-unix)
-(set-selection-coding-system 'utf-8-unix)
-(set-terminal-coding-system 'utf-8-unix)
+(set-language-environment "Chinese-gbk")
+(set-buffer-file-coding-system 'chinese-gbk)
+(set-clipboard-coding-system 'chinese-gbk)
+(set-file-name-coding-system 'chinese-gbk)
+(set-keyboard-coding-system 'chinese-gbk)
+(set-next-selection-coding-system 'chinese-gbk)
+(set-selection-coding-system 'chinese-gbk)
+(set-terminal-coding-system 'chinese-gbk)
 
-(when (eq system-type 'windows-nt)
-  (set-default 'process-coding-system-alist
-	       '(("[pP][lL][iI][nN][kK]" gbk-dos . gbk-dos)
-		 ("[cC][mM][dD][pP][rR][oO][xX][yY]" gbk-dos . gbk-dos))))
+  ;; (when (eq system-type 'windows-nt)
+  ;;   (set-language-environment "Chinese-gbk")
+  ;;   (set-selection-coding-system 'gbk-dos)
+  ;;   (set-next-selection-coding-system 'gbk-dos)
+  ;;   (set-clipboard-coding-system 'gbk-dos))
+;; (when (eq system-type 'windows-nt)
+;;   (set-default 'process-coding-system-alist
+;; 	       '(("[pP][lL][iI][nN][kK]" gbk-dos . gbk-dos)
+;; 		 ("[cC][mM][dD][pP][rR][oO][xX][yY]" gbk-dos . gbk-dos))))
+
 ;;启动最大化
 (setq initial-frame-alist (quote ((fullscreen . maximized))))
-
 
 ;; force horizontal split window
 (setq split-width-threshold 120)
@@ -49,5 +54,4 @@
 (use-package autorevert
   :ensure nil
   :diminish auto-revert-mode)
-
 (provide 'watcher-better-defaults)

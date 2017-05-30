@@ -5,7 +5,7 @@
   (setq-default
    projectile-mode-line
    '(:eval
-      (format "Pr") )
+     (format "Pr") )
    )
 
   (spacemacs-keys-set-leader-keys

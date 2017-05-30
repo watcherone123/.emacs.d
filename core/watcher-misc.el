@@ -1,6 +1,7 @@
 (use-package chinese-fonts-setup
   :ensure t
-  :config
+  :defer t
+  :init
   (set-face-attribute
    'default nil
    :font (font-spec :name "-outline-Source Code Pro-bold-italic-normal-mono-*-*-*-*-c-*-iso10646-1"
@@ -20,7 +21,9 @@
 
 (use-package youdao-dictionary
   :ensure t
-  :config
+  :defer t
+  :commands (youdao-dictionary-search-at-point+)
+  :init
   ;; (setq url-automatic-caching t)
   (with-eval-after-load 'watcher-keybindings
     (spacemacs-keys-set-leader-keys

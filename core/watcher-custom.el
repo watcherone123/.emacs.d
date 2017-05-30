@@ -25,4 +25,5 @@ Will only occur if `watcher-whitespace' is also enabled."
   :type 'symbol
   :group 'watcher)
 
+
 (provide 'watcher-custom)

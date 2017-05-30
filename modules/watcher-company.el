@@ -1,5 +1,3 @@
-
-
 (use-package yasnippet
   :defer t
   :ensure t
@@ -52,7 +50,9 @@
 
 (use-package company
   :ensure t
-  :config
+  :defer t
+  :commands (global-company-mode)
+  :init
   (global-company-mode)
   (setq company-dabbrev-downcase nil
 	;; make previous/next selection in the popup cycles
@@ -65,6 +65,7 @@
 	company-idle-delay 0.2
 	company-require-match nil
 	)
+  :config
   (add-to-list 'company-backends
 	       '(company-capf company-dabbrev company-files
 			      company-dabbrev-code company-gtags company-etag

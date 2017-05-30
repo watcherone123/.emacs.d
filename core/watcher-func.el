@@ -1,4 +1,5 @@
 ;; our own implementation of kill-this-buffer from menu-bar.el
+;;;###autoload
 (defun watcher/kill-this-buffer (&optional arg)
   "Kill the current buffer.
 If the universal prefix argument is used then kill also the window."
@@ -10,6 +11,7 @@ If the universal prefix argument is used then kill also the window."
       (kill-buffer))))
 
 ;; found at http://emacswiki.org/emacs/KillingBuffers
+;;;###autoload
 (defun watcher/kill-other-buffers (&optional arg)
   "Kill all other buffers.
 If the universal prefix argument is used then will the windows too."
@@ -20,6 +22,7 @@ If the universal prefix argument is used then will the windows too."
     (when (equal '(4) arg) (delete-other-windows))
     (message "Buffers deleted!")))
 
+;;;###autoload
 (defun watcher/switch-to-scratch-buffer ()
   "Switch to the `*scratch*' buffer. Create it first if needed."
   (interactive)
@@ -28,7 +31,7 @@ If the universal prefix argument is used then will the windows too."
     (let ((mode 'lisp-interaction-mode))
       (funcall mode))
     ))
-
+;;;###autoload
 (defun watcher/switch-to-messages-buffer (&optional arg)
   "Switch to the `*Messages*' buffer.
 if prefix argument ARG is given, switch to it in an other, possibly new window."
@@ -39,11 +42,13 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 	(switch-to-buffer-other-window (current-buffer))
       (switch-to-buffer (current-buffer)))))
 
+;;;###autoload
 (defun watcher/copy-file ()
   "Write the file under new name."
   (interactive)
   (call-interactively 'write-file))
 
+;;;###autoload
 (defun watcher/show-and-copy-buffer-filename ()
   "Show and copy the full path to the current file in the minibuffer."
   (interactive)
@@ -53,6 +58,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 	(message (kill-new file-name))
       (error "Buffer not visiting a file"))))
 
+;;;###autoload
 ;; from magnars
 (defun watcher/rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
@@ -78,6 +84,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
 		 (recentf-remove-if-non-kept filename))
 	       (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
+;;;###autoload
 (defun watcher/last-buffer (&optional window)
   "Switch back and forth between current and last buffer in the
 current window."
@@ -96,6 +103,7 @@ current window."
 	 ;; `other-buffer' honors `buffer-predicate' so no need to filter
 	 (other-buffer current-buffer t)))))
 
+;;;###autoload
 (defun watcher/delete-window (&optional arg)
   "Delete the current window.
 If the universal prefix argument is used then kill the buffer too."
@@ -119,6 +127,7 @@ If the universal prefix argument is used then kill the buffer too."
     yaml-mode)
   "Modes for which auto-indenting is suppressed.")
 
+;;;###autoload
 (defun watcher/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)

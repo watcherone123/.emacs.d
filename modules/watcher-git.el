@@ -1,6 +1,7 @@
 (use-package magit
   :ensure t
-  :config
+  :defer t
+  :init
   (spacemacs-keys-declare-prefix "gf" "file")
   (spacemacs-keys-set-leader-keys
     "g s" 'magit-status

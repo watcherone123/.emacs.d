@@ -10,7 +10,13 @@
   )
 
 (use-package evil-nerd-commenter
-  :ensure t)
+  :ensure t
+  :commands (evilnc-comment-operator)
+  :init
+  (spacemacs-keys-set-leader-keys
+    ";"  'evilnc-comment-operator
+    )
+  )
 
 (use-package multiple-cursors
   :defer t

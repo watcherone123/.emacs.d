@@ -47,7 +47,6 @@
   :defer t
   :config
   (spacemacs-keys-set-leader-keys
-    ";"  'evilnc-comment-operator
     "="  'watcher/indent-region-or-buffer
     "TAB" 'watcher/last-buffer
     "/" 'helm-do-ag
@@ -72,6 +71,7 @@
     "b n" 'next-buffer
     "b C-d" 'watcher/kill-other-buffers
 
+    "f J" 'dired-jump-other-window
     "f j" 'dired-jump
     "f c" 'watcher/copy-file
     "f y" 'watcher/show-and-copy-buffer-filename

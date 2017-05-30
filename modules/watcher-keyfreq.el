@@ -15,7 +15,9 @@
 
 (use-package keyfreq
   :ensure t
-  :config
+  :defer t
+  :commands (turnon-keyfreq-mode)
+  :init
   (turnon-keyfreq-mode))
  
 (provide 'watcher-keyfreq)
