@@ -34,6 +34,7 @@
       "SPC q"   "quit "
       "SPC g"   "git"
       "SPC o"   "watcher"
+      "SPC x"   "text"
       "SPC t"   "toggle"
       "SPC m"   '("major-mode-cmd" . "Major mode commands")
       )
