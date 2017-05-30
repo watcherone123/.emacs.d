@@ -9,7 +9,8 @@
   :ensure t
   :init
   (load-theme watcher-theme t)
-
+  (custom-theme-set-faces 'sanityinc-tomorrow-night
+			  `(region ((t :background "magenta"))))
   )
 (use-package highlight-parentheses
   :diminish highlight-parentheses-mode
