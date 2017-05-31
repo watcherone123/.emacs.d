@@ -95,5 +95,5 @@
 
 (message "Wacther is ready to do thy bidding, Master %s!" current-user)
   (when (require 'time-date nil t)
-    (message "Emacs startup time: %d seconds."
+    (message "Emacs startup time: %f seconds."
              (time-to-seconds (time-since emacs-load-start-time))))
