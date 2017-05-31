@@ -30,4 +30,9 @@
       " o y" 'youdao-dictionary-search-at-point+)
     )
   ) 
+(use-package esup
+  :ensure t
+  :defer t
+  )
+
 (provide 'watcher-misc)
