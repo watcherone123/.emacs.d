@@ -22,7 +22,7 @@
       "x k"  'mc/mark-previous-like-this
       "x d"  'mc/unmark-next-like-this
       "x D"  'mc/unmark-previous-like-this
-      "x l"  'mc/edit-lines
+      ;; "x l"  'mc/edit-lines
       "x b"  'mc/edit-beginnings-of-lines
       "x e"  'mc/edit-ends-of-lines
       )
@@ -39,6 +39,13 @@
       "x d" 'symbol-overlay-remove-all
       )
     )
+  )
+(use-package expand-region
+  :ensure t
+  :defer t
+  :commands (er/expand-region)
+  :init
+  (global-set-key (kbd "C-=") 'er/expand-region)
   )
 
 (provide 'watcher-better-edit)
