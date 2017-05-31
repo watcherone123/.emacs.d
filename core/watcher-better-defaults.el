@@ -3,6 +3,9 @@
      (tool-bar-mode -1))
 (and (bound-and-true-p scroll-bar-mode)
      (scroll-bar-mode -1))
+
+;;启动最大化
+(setq initial-frame-alist (quote ((fullscreen . maximized))))
 ;;设置光标样式
 					;(setq-default cursor-type 'bar)
 ;; 关闭启动帮助画面
@@ -44,9 +47,6 @@
 ;;   (set-default 'process-coding-system-alist
 ;; 	       '(("[pP][lL][iI][nN][kK]" gbk-dos . gbk-dos)
 ;; 		 ("[cC][mM][dD][pP][rR][oO][xX][yY]" gbk-dos . gbk-dos))))
-
-;;启动最大化
-(setq initial-frame-alist (quote ((fullscreen . maximized))))
 
 ;; force horizontal split window
 (setq split-width-threshold 120)
