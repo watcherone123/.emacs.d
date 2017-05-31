@@ -9,6 +9,7 @@
   :ensure t
   :init
   (load-theme watcher-theme t)
+  :config
   (custom-theme-set-faces 'sanityinc-tomorrow-night
 			  `(region ((t :background "magenta"))))
   )
@@ -38,7 +39,6 @@
   :defer 0.1
   :diminish smartparens-mode
   :ensure smartparens
-
   :config
   (progn
     (show-smartparens-global-mode t)
@@ -56,6 +56,44 @@
   (spacemacs-keys-set-leader-keys
     "wg" 'golden-ratio-mode
     )
+  )
+
+(use-package neotree
+  :ensure t
+  :defer t
+  :commands (neotree-toggle)
+  :init
+  (progn
+    (setq neo-window-width 32
+	  neo-create-file-auto-open t
+	  neo-show-updir-line nil
+	  neo-mode-line-type 'neotree
+	  neo-smart-open t
+	  neo-dont-be-alone t
+	  neo-persist-show nil
+	  neo-show-hidden-files t
+	  neo-auto-indent-point t
+	  neo-modern-sidebar t
+	  neo-vc-integration nil)
+    (require 'watcher-keybindings)
+    (spacemacs-keys-set-leader-keys
+      "ft" 'neotree-toggle
+      )
+    )
+  :config
+  (defun watcher/set-keybinds-for-neotree ()
+    (with-eval-after-load 'evil
+      (evil-define-key 'normal  neotree-mode-map (kbd "q") 'neotree-hide)
+      (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+      (evil-define-key 'normal neotree-mode-map (kbd "gr") 'neotree-refresh)
+      (evil-define-key 'normal neotree-mode-map (kbd "j") 'neotree-next-line)
+      (evil-define-key 'normal neotree-mode-map (kbd "k") 'neotree-previous-line)
+      (evil-define-key 'normal neotree-mode-map (kbd "K") 'neotree-select-up-node)
+      (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+      )
+    )
+
+  (watcher/set-keybinds-for-neotree)
   )
 
 (use-package popwin
