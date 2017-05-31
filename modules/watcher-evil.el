@@ -7,6 +7,9 @@
   (define-key evil-insert-state-map (kbd "\C-a") 'evil-first-non-blank)
   (define-key evil-insert-state-map (kbd "\C-e") 'evil-end-of-visual-line)
   (define-key evil-normal-state-map (kbd "\C-e") 'evil-end-of-visual-line)
+  (spacemacs-keys-set-leader-keys
+    "t u" 'undo-tree-visualize
+    )
   )
 
 (use-package evil-nerd-commenter
