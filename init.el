@@ -1,11 +1,8 @@
-
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
-
 
 (setq user-full-name "watcher"
       user-mail-address "watcherone123@gmail.com")
@@ -30,31 +27,22 @@
   "The home of Watcher's core functionality.")
 (defvar watcher-modules-dir (expand-file-name  "modules" watcher-dir)
   "This directory houses all of the built-in Watcher modules.")
+(defvar watcher-cache-directory (expand-file-name ".cache" user-emacs-directory))
+(make-directory watcher-cache-directory t)
 
-
-
-(defvar watcher-savefile-dir (expand-file-name "savefile" watcher-dir)
-  "This folder stores all the automatically generated save/history-files.")
 (defvar watcher-modules-file (expand-file-name "watcher-modules-autoloads.el" watcher-dir)
   "This files contains a list of modules that will be loaded by Watcher.")
 
 
-
-(unless (file-exists-p watcher-savefile-dir)
-  (make-directory watcher-savefile-dir))
-
-(setq recentf-save-file (expand-file-name "recentf" watcher-savefile-dir))
-(setq smex-save-file (expand-file-name "smex" watcher-savefile-dir))
-
-
+(setq recentf-save-file (expand-file-name "recentf" watcher-cache-directory))
 (defun watcher-add-subfolders-to-load-path (parent-dir)
- "Add all level PARENT-DIR subdirs to the `load-path'."
- (dolist (f (directory-files parent-dir))
-   (let ((name (expand-file-name f parent-dir)))
-     (when (and (file-directory-p name)
-                (not (string-prefix-p "." f)))
-       (add-to-list 'load-path name)
-       (watcher-add-subfolders-to-load-path name)))))
+  "Add all level PARENT-DIR subdirs to the `load-path'."
+  (dolist (f (directory-files parent-dir))
+    (let ((name (expand-file-name f parent-dir)))
+      (when (and (file-directory-p name)
+		 (not (string-prefix-p "." f)))
+	(add-to-list 'load-path name)
+	(watcher-add-subfolders-to-load-path name)))))
 
 ;; add Prelude's directories to Emacs's `load-path'
 (add-to-list 'load-path watcher-core-dir)
@@ -94,6 +82,7 @@
   (load custom-file :no-error :no-message))
 
 (message "Wacther is ready to do thy bidding, Master %s!" current-user)
-  (when (require 'time-date nil t)
-    (message "Emacs startup time: %f seconds."
-             (time-to-seconds (time-since emacs-load-start-time))))
+(when (require 'time-date nil t)
+  (message "Emacs startup time: %f seconds."
+	   (time-to-seconds (time-since emacs-load-start-time))))
+(put 'upcase-region 'disabled nil)

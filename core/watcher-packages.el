@@ -23,5 +23,6 @@
   (require 'use-package))
 (require 'diminish)                ;; if you use :diminish
 (require 'bind-key)                ;; if you use any :bind variant
+(setq use-package-inject-hooks t)
 
 (provide 'watcher-packages)

@@ -17,6 +17,7 @@
 		:slant 'normal
 		:size 15.0)))
   ;; (chinese-fonts-setup-enable)
+
   )
 
 (use-package youdao-dictionary
@@ -29,7 +30,7 @@
     (spacemacs-keys-set-leader-keys
       " o y" 'youdao-dictionary-search-at-point+)
     )
-  ) 
+  )
 (use-package esup
   :ensure t
   :defer t

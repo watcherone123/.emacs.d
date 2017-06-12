@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "watcher-func" "watcher-func.el" (22828 15132
+;;;### (autoloads nil "watcher-func" "watcher-func.el" (22838 10366
 ;;;;;;  0 0))
 ;;; Generated autoloads from watcher-func.el
 
@@ -59,6 +59,12 @@ If the universal prefix argument is used then kill the buffer too.
 
 (autoload 'watcher/indent-region-or-buffer "watcher-func" "\
 Indent a region if selected, otherwise the whole buffer.
+
+\(fn)" t nil)
+
+(autoload 'watcher-toggle-letter-case "watcher-func" "\
+Toggle the letter case of current word or text selection.
+Always cycle in this order: Init Caps, ALL CAPS, all lower.
 
 \(fn)" t nil)
 

@@ -1,6 +1,7 @@
 (use-package evil
   :ensure t
   :diminish undo-tree-mode
+  
   :config
   (evil-mode 1)
   (setq evil-default-cursor t)

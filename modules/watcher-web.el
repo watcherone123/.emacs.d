@@ -58,4 +58,10 @@
 	(eval `(defengine ,cur-engine ,engine-url)))))
   )
 
+(use-package url
+  :defer t
+  :init
+  (progn
+    (setq-default url-configuration-directory (expand-file-name "url" watcher-cache-directory))
+    ))
 (provide 'watcher-web)

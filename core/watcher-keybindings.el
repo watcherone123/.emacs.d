@@ -51,11 +51,11 @@
     "="  'watcher/indent-region-or-buffer
     "TAB" 'watcher/last-buffer
     "/" 'helm-do-ag
-    "0" 'select-window-0
-    "1" 'select-window-1
-    "2" 'select-window-2
-    "3" 'select-window-3
-    "4" 'select-window-4
+    "0" 'winum-select-window-0
+    "1" 'winum-select-window-1
+    "2" 'winum-select-window-2
+    "3" 'winum-select-window-3
+    "4" 'winum-select-window-4
 
     "a l" 'counsel-colors-emacs
     "a r" 'calendar
@@ -79,6 +79,7 @@
     "f R" 'watcher/rename-current-buffer-file
 
     "t l" 'linum-mode
+    "t c" 'watcher-toggle-letter-case
 
     "q q" 'save-buffers-kill-terminal
     "w /" 'split-window-right
@@ -91,5 +92,6 @@
     "h k" 'which-key-show-top-level
     )
   )
-(global-set-key (kbd "C-M-\\") 'watcher/indent-region-or-buffer)  
+
+(global-set-key (kbd "C-M-\\") 'watcher/indent-region-or-buffer)
 (provide 'watcher-keybindings)

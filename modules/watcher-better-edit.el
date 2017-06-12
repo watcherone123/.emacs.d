@@ -2,6 +2,7 @@
   :defer t
   :ensure t
   :init
+  (setq-default mc/list-file (expand-file-name ".mc-lists.el" watcher-cache-directory))
   ;; ;; {{ multiple-cursors
   ;; ;; step 1, select thing in visual-mode (OPTIONAL)
   ;; ;; step 2, `mc/mark-all-like-dwim' or `mc/mark-all-like-this-in-defun'
@@ -27,7 +28,10 @@
       "x e"  'mc/edit-ends-of-lines
       )
     )
-  )
+  ) 
+
+
+
 
 (use-package symbol-overlay
   :ensure t

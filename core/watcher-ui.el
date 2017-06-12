@@ -1,9 +1,11 @@
-(use-package window-numbering
+(use-package winum
   :ensure t
   :defer t
-  :commands (window-numbering-mode)
+  :commands (winum-mode)
   :init
-  (window-numbering-mode))
+  (setq winum-auto-setup-mode-line nil)
+  (add-hook 'after-init-hook 'winum-mode)
+  )
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
@@ -22,18 +24,35 @@
   )
 
 (use-package spaceline
+  :defer t
   :ensure t)
 
 (use-package spaceline-config
   :ensure spaceline
+  ;; :disabled t
   :defer t
-  :commands (spaceline-spacemacs-theme)
+  :commands (spaceline-spacemacs-theme )
   :init
   (spaceline-spacemacs-theme)
-
   :config
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
   )
+
+
+(use-package all-the-icons
+  :ensure t
+  :defer t
+  :init
+  (set-frame-font "all-the-icons" t)
+  :config
+  (set-frame-font "Source Code Pro" t)
+  )
+
+(use-package all-the-icons-dired
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
 (use-package smartparens-config
   :defer 0.1
@@ -81,6 +100,7 @@
       )
     )
   :config
+  (setq neo-theme (if window-system 'icons 'arrow))
   (defun watcher/set-keybinds-for-neotree ()
     (with-eval-after-load 'evil
       (evil-define-key 'normal  neotree-mode-map (kbd "q") 'neotree-hide)

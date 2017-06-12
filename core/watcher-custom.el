@@ -8,6 +8,11 @@
   :type 'boolean
   :group 'watcher)
 
+(defcustom watcher-fullscreen t
+  "nil values disabled emacs startup fullscreen"
+  :type 'boolean
+  :group 'watcher)
+
 
 (defcustom watcher-whitespace t
   "Non-nil values enable Wacther's whitespace visualization."

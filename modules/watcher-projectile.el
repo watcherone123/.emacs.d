@@ -7,7 +7,8 @@
    '(:eval
      (format "Pr") )
    )
-
+    (setq projectile-known-projects-file (expand-file-name  "projectile-bookmarks.eld" watcher-cache-directory)
+          projectile-cache-file (expand-file-name  "projectile.cache" watcher-cache-directory))
   (spacemacs-keys-set-leader-keys
     " p d" 'counsel-projectile-find-dir
     "p D" 'projectile-dired

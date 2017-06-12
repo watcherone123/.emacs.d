@@ -30,3 +30,7 @@
 (require 'watcher-markdown)
 ;;;###autoload
 (require 'watcher-web)
+;; ;;;###autoload
+;; (require 'watcher-w3m)
+;;;###autoload
+(require 'watcher-python)

@@ -68,7 +68,7 @@
   :config
   (add-to-list 'company-backends
 	       '(company-capf company-dabbrev company-files
-			      company-dabbrev-code company-gtags 
+			      company-dabbrev-code company-gtags
 			      company-keywords
 			      ))
   ;; (setq company-backends
@@ -79,6 +79,11 @@
   (define-key company-active-map (kbd "C-p")'company-select-previous)
 
   )
+
+(defun watcher/local-push-company-backend (backend)
+  "Add BACKEND to a buffer-local version of `company-backends'."
+  (set (make-local-variable 'company-backends)
+       (append (list backend) company-backends)))
 
 
 (provide 'watcher-company)
