@@ -13,6 +13,8 @@
 					;(setq-default cursor-type 'bar)
 ;; 关闭启动帮助画面
 (setq inhibit-splash-screen 1)
+;; 设置默认文件路径
+(setq default-directory "~/workspace")
 
 ;;-----------------其它配置--------------
 ;;禁止响铃
