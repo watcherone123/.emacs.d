@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "watcher-func" "watcher-func.el" (22838 10366
+;;;### (autoloads nil "watcher-func" "watcher-func.el" (22847 29131
 ;;;;;;  0 0))
 ;;; Generated autoloads from watcher-func.el
 
@@ -65,6 +65,21 @@ Indent a region if selected, otherwise the whole buffer.
 (autoload 'watcher-toggle-letter-case "watcher-func" "\
 Toggle the letter case of current word or text selection.
 Always cycle in this order: Init Caps, ALL CAPS, all lower.
+
+\(fn)" t nil)
+
+(autoload 'watcher/find-user-init-file "watcher-func" "\
+Edit the `user-init-file', in the current window.
+
+\(fn)" t nil)
+
+(autoload 'watcher/find-core-file "watcher-func" "\
+Edit the `core-file', in the current window.
+
+\(fn)" t nil)
+
+(autoload 'watcher/find-modules-file "watcher-func" "\
+Edit the `modules-file', in the current window.
 
 \(fn)" t nil)
 
