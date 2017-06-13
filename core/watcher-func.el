@@ -172,4 +172,23 @@ Always cycle in this order: Init Caps, ALL CAPS, all lower.
       (downcase-region -p1 -p2)
       (put this-command 'state 0)))))
 
+;;;###autoload
+(defun watcher/find-user-init-file ()
+  "Edit the `user-init-file', in the current window."
+  (interactive)
+  (find-file-existing user-init-file))
+
+;;;###autoload
+(defun watcher/find-core-file ()
+  "Edit the `core-file', in the current window."
+  (interactive)
+  (find-file-existing "~/.emacs.d/core/"))
+
+;;;###autoload
+(defun watcher/find-modules-file ()
+  "Edit the `modules-file', in the current window."
+  (interactive)
+  (find-file-existing "~/.emacs.d/modules/"))
+
+
 (provide 'watcher-func)
