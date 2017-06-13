@@ -27,6 +27,7 @@
       "SPC a"   "appliction"
       "SPC b"   "buffers"
       "SPC f"   "files"
+      "SPC f e" "emacs"
       "SPC p"   "projects"
       "SPC h"   "help"
       "SPC w"   "window"
@@ -77,6 +78,9 @@
     "f c" 'watcher/copy-file
     "f y" 'watcher/show-and-copy-buffer-filename
     "f R" 'watcher/rename-current-buffer-file
+    "fei" 'watcher/find-user-init-file
+    "fec" 'watcher/find-core-file
+    "fem" 'watcher/find-modules-file
 
     "t l" 'linum-mode
     "t c" 'watcher-toggle-letter-case
