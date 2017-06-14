@@ -5,10 +5,16 @@
      (scroll-bar-mode -1))
 
 ;;启动最大化
-(when watcher-fullscreen
+;; (when watcher-fullscreen
+(progn
   (unless (frame-parameter nil 'fullscreen)
-    (toggle-frame-maximized))
-  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
+    (toggle-frame-maximized)
+    )
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)) 
+  )
+
+  ;; )
+
 ;;设置光标样式
 					;(setq-default cursor-type 'bar)
 ;; 关闭启动帮助画面
@@ -43,15 +49,15 @@
 (set-selection-coding-system 'chinese-gbk)
 (set-terminal-coding-system 'chinese-gbk)
 
-  ;; (when (eq system-type 'windows-nt)
-  ;;   (set-language-environment "Chinese-gbk")
-  ;;   (set-selection-coding-system 'gbk-dos)
-  ;;   (set-next-selection-coding-system 'gbk-dos)
-  ;;   (set-clipboard-coding-system 'gbk-dos))
+;; (when (eq system-type 'windows-nt)
+;;   (set-language-environment "Chinese-gbk")
+;;   (set-selection-coding-system 'gbk-dos)
+;;   (set-next-selection-coding-system 'gbk-dos)
+;;   (set-clipboard-coding-system 'gbk-dos))
 ;; (when (eq system-type 'windows-nt)
 ;;   (set-default 'process-coding-system-alist
-;; 	       '(("[pP][lL][iI][nN][kK]" gbk-dos . gbk-dos)
-;; 		 ("[cC][mM][dD][pP][rR][oO][xX][yY]" gbk-dos . gbk-dos))))
+;;	       '(("[pP][lL][iI][nN][kK]" gbk-dos . gbk-dos)
+;;		 ("[cC][mM][dD][pP][rR][oO][xX][yY]" gbk-dos . gbk-dos))))
 
 ;; force horizontal split window
 (setq split-width-threshold 120)
@@ -64,7 +70,7 @@
   :bind (("C-c f b" . list-bookmarks))
   ;; Save bookmarks immediately after a bookmark was added
   :config (setq bookmark-save-flag 1
-                bookmark-default-file (expand-file-name "bookmarks" watcher-cache-directory)))
+		bookmark-default-file (expand-file-name "bookmarks" watcher-cache-directory)))
 
 (use-package saveplace                  ; Save point position in files
   :init (save-place-mode 1)
