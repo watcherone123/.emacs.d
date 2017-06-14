@@ -1,5 +1,4 @@
 (use-package auctex-latexmk
-  :defer t
   :ensure t
   :defer t
   :init
@@ -9,7 +8,6 @@
     ))
 
 (use-package tex
-  :defer t
   :defer t
   :init
   (progn
