@@ -35,6 +35,7 @@
       "SPC q"   "quit "
       "SPC g"   "git"
       "SPC o"   "watcher"
+      "SPC v"   "visual"
       "SPC x"   "text"
       "SPC t"   "toggle"
       "SPC m"   '("major-mode-cmd" . "Major mode commands")
@@ -62,6 +63,7 @@
     "a r" 'calendar
     "a c" 'calc
     "a e" 'eshell
+    "a p" 'esup
 
     "b b" 'ivy-switch-buffer
     "b o" 'ivy-switch-buffer-other-window
@@ -75,12 +77,15 @@
 
     "f J" 'dired-jump-other-window
     "f j" 'dired-jump
+    "f o" 'watcher-open-in-external-app
     "f c" 'watcher/copy-file
     "f y" 'watcher/show-and-copy-buffer-filename
     "f R" 'watcher/rename-current-buffer-file
     "fei" 'watcher/find-user-init-file
     "fec" 'watcher/find-core-file
     "fem" 'watcher/find-modules-file
+
+    "vl" 'watcher-clean-empty-lines
 
     "t l" 'linum-mode
     "t c" 'watcher-toggle-letter-case

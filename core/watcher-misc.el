@@ -1,3 +1,4 @@
+(require 'cl)
 (use-package chinese-fonts-setup
   :ensure t
   :defer t
