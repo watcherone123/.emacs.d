@@ -122,6 +122,8 @@
   :commands (popwin-mode)
   :init
   (popwin-mode 1))
+
+(add-hook 'before-save-hook 'watcher-clean-whitespace)
 ;;配置窗口标题
 (setq frame-title-format
       '((:eval (if (buffer-file-name)

@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "watcher-func" "watcher-func.el" (22847 29131
+;;;### (autoloads nil "watcher-func" "watcher-func.el" (22871 42459
 ;;;;;;  0 0))
 ;;; Generated autoloads from watcher-func.el
 
@@ -80,6 +80,37 @@ Edit the `core-file', in the current window.
 
 (autoload 'watcher/find-modules-file "watcher-func" "\
 Edit the `modules-file', in the current window.
+
+\(fn)" t nil)
+
+(autoload 'watcher-clean-empty-lines "watcher-func" "\
+Replace repeated blank lines to just 1.
+Works on whole buffer or text selection, respects `narrow-to-region'.
+
+*N is the number of newline chars to use in replacement.
+If 0, it means lines will be joined.
+By befault, *N is 2. It means, 1 visible blank line.
+
+URL `http://ergoemacs.org/emacs/elisp_compact_empty_lines.html'
+Version 2017-01-27
+
+\(fn &optional *BEGIN *END *N)" t nil)
+
+(autoload 'watcher-clean-whitespace "watcher-func" "\
+Delete trailing whitespace, and replace repeated blank lines to just 1.
+Only space and tab is considered whitespace here.
+Works on whole buffer or text selection, respects `narrow-to-region'.
+
+URL `http://ergoemacs.org/emacs/elisp_compact_empty_lines.html'
+Version 2016-10-15
+
+\(fn &optional *BEGIN *END)" t nil)
+
+(autoload 'watcher-open-in-external-app "watcher-func" "\
+Open the current file or dired marked files in external app.
+The app is chosen from your OS's preference.
+URL `http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html'
+Version 2016-10-15
 
 \(fn)" t nil)
 
