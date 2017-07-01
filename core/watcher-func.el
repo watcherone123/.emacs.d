@@ -190,5 +190,87 @@ Always cycle in this order: Init Caps, ALL CAPS, all lower.
   (interactive)
   (find-file-existing "~/.emacs.d/modules/"))
 
+;;;###autoload
+(defun watcher-clean-empty-lines (&optional *begin *end *n)
+  "Replace repeated blank lines to just 1.
+Works on whole buffer or text selection, respects `narrow-to-region'.
+
+*N is the number of newline chars to use in replacement.
+If 0, it means lines will be joined.
+By befault, *N is 2. It means, 1 visible blank line.
+
+URL `http://ergoemacs.org/emacs/elisp_compact_empty_lines.html'
+Version 2017-01-27"
+  (interactive
+   (if (region-active-p)
+       (list (region-beginning) (region-end))
+     (list (point-min) (point-max))))
+  (when (not *begin)
+    (setq *begin (point-min) *end (point-max)))
+  (save-excursion
+    (save-restriction
+      (narrow-to-region *begin *end)
+      (progn
+	(goto-char (point-min))
+	(while (re-search-forward "\n\n\n+" nil "NOERROR")
+	  (replace-match (make-string (if *n *n 2) 10)))))))
+
+;;;###autoload
+(defun watcher-clean-whitespace (&optional *begin *end)
+  "Delete trailing whitespace, and replace repeated blank lines to just 1.
+Only space and tab is considered whitespace here.
+Works on whole buffer or text selection, respects `narrow-to-region'.
+
+URL `http://ergoemacs.org/emacs/elisp_compact_empty_lines.html'
+Version 2016-10-15"
+  (interactive
+   (if (region-active-p)
+       (list (region-beginning) (region-end))
+     (list (point-min) (point-max))))
+  (when (not *begin)
+    (setq *begin (point-min) *end (point-max)))
+  (save-excursion
+    (save-restriction
+      (narrow-to-region *begin *end)
+      (progn
+	(goto-char (point-min))
+	(while (re-search-forward "[ \t]+\n" nil "NOERROR")
+	  (replace-match "\n")))
+      (xah-clean-empty-lines (point-min) (point-max))
+      (progn
+	(goto-char (point-max))
+	(while (equal (char-before) 32) ; char 32 is space
+	  (delete-char -1))))))
+
+;;;###autoload
+(defun watcher-open-in-external-app ()
+  "Open the current file or dired marked files in external app.
+The app is chosen from your OS's preference.
+URL `http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html'
+Version 2016-10-15"
+  (interactive)
+  (let* (
+         (-file-list
+          (if (string-equal major-mode "dired-mode")
+              (dired-get-marked-files)
+            (list (buffer-file-name))))
+         (-do-it-p (if (<= (length -file-list) 5)
+                       t
+                     (y-or-n-p "Open more than 5 files? "))))
+    (when -do-it-p
+      (cond
+       ((string-equal system-type "windows-nt")
+        (mapc
+         (lambda (-fpath)
+           (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" -fpath t t))) -file-list))
+       ((string-equal system-type "darwin")
+        (mapc
+         (lambda (-fpath)
+           (shell-command
+            (concat "open " (shell-quote-argument -fpath))))  -file-list))
+       ((string-equal system-type "gnu/linux")
+        (mapc
+         (lambda (-fpath) (let ((process-connection-type nil))
+                            (start-process "" nil "xdg-open" -fpath))) -file-list))))))
 
 (provide 'watcher-func)
