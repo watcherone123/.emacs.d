@@ -10,10 +10,10 @@
   (unless (frame-parameter nil 'fullscreen)
     (toggle-frame-maximized)
     )
-  (add-to-list 'default-frame-alist '(fullscreen . maximized)) 
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
   )
 
-  ;; )
+;; )
 
 ;;设置光标样式
 					;(setq-default cursor-type 'bar)
@@ -60,7 +60,8 @@
 ;;		 ("[cC][mM][dD][pP][rR][oO][xX][yY]" gbk-dos . gbk-dos))))
 
 ;; force horizontal split window
-(setq split-width-threshold 120)
+(setq split-height-threshold nil)
+(setq split-width-threshold 0)
 
 (use-package autorevert
   :ensure nil
