@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "watcher-func" "watcher-func.el" (22871 42459
+;;;### (autoloads nil "watcher-func" "watcher-func.el" (22875 31412
 ;;;;;;  0 0))
 ;;; Generated autoloads from watcher-func.el
 
@@ -57,6 +57,11 @@ If the universal prefix argument is used then kill the buffer too.
 
 \(fn &optional ARG)" t nil)
 
+(autoload 'toggle-window-split "watcher-func" "\
+
+
+\(fn)" t nil)
+
 (autoload 'watcher/indent-region-or-buffer "watcher-func" "\
 Indent a region if selected, otherwise the whole buffer.
 
@@ -95,16 +100,6 @@ URL `http://ergoemacs.org/emacs/elisp_compact_empty_lines.html'
 Version 2017-01-27
 
 \(fn &optional *BEGIN *END *N)" t nil)
-
-(autoload 'watcher-clean-whitespace "watcher-func" "\
-Delete trailing whitespace, and replace repeated blank lines to just 1.
-Only space and tab is considered whitespace here.
-Works on whole buffer or text selection, respects `narrow-to-region'.
-
-URL `http://ergoemacs.org/emacs/elisp_compact_empty_lines.html'
-Version 2016-10-15
-
-\(fn &optional *BEGIN *END)" t nil)
 
 (autoload 'watcher-open-in-external-app "watcher-func" "\
 Open the current file or dired marked files in external app.
