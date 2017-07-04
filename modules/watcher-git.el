@@ -14,8 +14,4 @@
     )
   )
 
-
-
-
-
 (provide 'watcher-git)
