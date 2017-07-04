@@ -46,6 +46,18 @@
 
   )
 
+(defun watcher/split-window-horizontally ()
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1)
+  )
+
+(defun watcher/split-window-vertically ()
+  (interactive)
+  (split-window-vertically)
+  (other-window 1)
+  )
+
 (use-package spacemacs-keys
   :defer t
   :config
@@ -91,16 +103,20 @@
     "t c" 'watcher-toggle-letter-case
 
     "q q" 'save-buffers-kill-terminal
-    "w /" 'split-window-right
-    "w -" 'split-window-below
+    "w /" 'watcher/split-window-horizontally
+    "w -" 'watcher/split-window-vertically
     "w d" 'watcher/delete-window
     "w o" 'delete-other-windows
     "w =" 'balance-windows
+    "w t" 'toggle-window-split
 
     "h p" 'describe-package
     "h k" 'which-key-show-top-level
+    "h m" 'describe-mode
     )
   )
 
+(global-set-key (kbd "C-x 2") 'watcher/split-window-vertically)
+(global-set-key (kbd "C-x 3") 'watcher/split-window-horizontally)
 (global-set-key (kbd "C-M-\\") 'watcher/indent-region-or-buffer)
 (provide 'watcher-keybindings)
