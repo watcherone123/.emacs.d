@@ -17,6 +17,12 @@
 (use-package counsel
   :defer t
   :ensure t
+  :init
+  (progn
+    (setq-default
+     recentf-max-saved-items 1000
+     recentf-exclude '("/tmp/" "/ssh:"))
+    )
   :bind
   ("C-x C-f" . counsel-find-file)
   ("C-c C-r". counsel-recentf)
