@@ -112,6 +112,33 @@ If the universal prefix argument is used then kill the buffer too."
       (kill-buffer-and-window)
     (delete-window)))
 
+;;;###autoload
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+         (next-win-buffer (window-buffer (next-window)))
+         (this-win-edges (window-edges (selected-window)))
+         (next-win-edges (window-edges (next-window)))
+         (this-win-2nd (not (and (<= (car this-win-edges)
+                     (car next-win-edges))
+                     (<= (cadr this-win-edges)
+                     (cadr next-win-edges)))))
+         (splitter
+          (if (= (car this-win-edges)
+             (car (window-edges (next-window))))
+          'split-window-horizontally
+        'split-window-vertically)))
+    (delete-other-windows)
+    (let ((first-win (selected-window)))
+      (funcall splitter)
+      (if this-win-2nd (other-window 1))
+      (set-window-buffer (selected-window) this-win-buffer)
+      (set-window-buffer (next-window) next-win-buffer)
+      (select-window first-win)
+      (if this-win-2nd (other-window 1))))))
+
+
 (defvar watcher-indent-sensitive-modes
   '(asm-mode
     coffee-mode
@@ -214,33 +241,6 @@ Version 2017-01-27"
 	(goto-char (point-min))
 	(while (re-search-forward "\n\n\n+" nil "NOERROR")
 	  (replace-match (make-string (if *n *n 2) 10)))))))
-
-;;;###autoload
-(defun watcher-clean-whitespace (&optional *begin *end)
-  "Delete trailing whitespace, and replace repeated blank lines to just 1.
-Only space and tab is considered whitespace here.
-Works on whole buffer or text selection, respects `narrow-to-region'.
-
-URL `http://ergoemacs.org/emacs/elisp_compact_empty_lines.html'
-Version 2016-10-15"
-  (interactive
-   (if (region-active-p)
-       (list (region-beginning) (region-end))
-     (list (point-min) (point-max))))
-  (when (not *begin)
-    (setq *begin (point-min) *end (point-max)))
-  (save-excursion
-    (save-restriction
-      (narrow-to-region *begin *end)
-      (progn
-	(goto-char (point-min))
-	(while (re-search-forward "[ \t]+\n" nil "NOERROR")
-	  (replace-match "\n")))
-      (xah-clean-empty-lines (point-min) (point-max))
-      (progn
-	(goto-char (point-max))
-	(while (equal (char-before) 32) ; char 32 is space
-	  (delete-char -1))))))
 
 ;;;###autoload
 (defun watcher-open-in-external-app ()
