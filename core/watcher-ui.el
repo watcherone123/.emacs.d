@@ -115,7 +115,7 @@
 
   (watcher/set-keybinds-for-neotree)
   )
-
+        
 (use-package popwin
   :ensure t
   :defer t
@@ -123,7 +123,13 @@
   :init
   (popwin-mode 1))
 
-(add-hook 'before-save-hook 'watcher-clean-whitespace)
+(use-package whitespace-cleanup-mode
+  :ensure t
+  :diminish whitespace-cleanup-mode
+  :defer t
+  :init
+  (global-whitespace-cleanup-mode t))
+
 ;;配置窗口标题
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
