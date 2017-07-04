@@ -28,10 +28,7 @@
       "x e"  'mc/edit-ends-of-lines
       )
     )
-  ) 
-
-
-
+  )
 
 (use-package symbol-overlay
   :ensure t
