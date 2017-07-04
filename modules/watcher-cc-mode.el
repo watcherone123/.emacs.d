@@ -1,7 +1,6 @@
 ;; avoid default "gnu" style, use more popular one
 (setq c-default-style "linux")
 
-
 (defun watcher-common-cc-mode-setup ()
   "setup shared by all languages (java/groovy/c++ ...)"
   (setq c-basic-offset 4)
@@ -19,6 +18,5 @@
   )
 
 (add-hook 'c-mode-common-hook 'watcher-common-cc-mode-setup)
-
 
 (provide 'watcher-cc-mode)
