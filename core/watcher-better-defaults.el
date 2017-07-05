@@ -5,7 +5,6 @@
      (scroll-bar-mode -1))
 
 ;;启动最大化
-;; (when watcher-fullscreen
 (progn
   (unless (frame-parameter nil 'fullscreen)
     (toggle-frame-maximized)
@@ -15,8 +14,6 @@
 
 ;; )
 
-;;设置光标样式
-					;(setq-default cursor-type 'bar)
 ;; 关闭启动帮助画面
 (setq inhibit-splash-screen 1)
 ;; 设置默认文件路径
