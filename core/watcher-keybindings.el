@@ -28,6 +28,7 @@
       "SPC b"   "buffers"
       "SPC f"   "files"
       "SPC f e" "emacs"
+      "SPC f b" "bookmarks"
       "SPC p"   "projects"
       "SPC h"   "help"
       "SPC w"   "window"
@@ -90,6 +91,10 @@
     "f J" 'dired-jump-other-window
     "f j" 'dired-jump
     "f o" 'watcher-open-in-external-app
+    "fbb" 'counsel-bookmark
+    "fbm" 'bookmark-set
+    "fbd" 'bookmark-delete
+    "fbj" 'bookmark-jump
     "f c" 'watcher/copy-file
     "f y" 'watcher/show-and-copy-buffer-filename
     "f R" 'watcher/rename-current-buffer-file
@@ -111,7 +116,7 @@
     "w t" 'toggle-window-split
 
     "h p" 'describe-package
-    "h k" 'which-key-show-top-level
+    "h k" 'describe-key
     "h m" 'describe-mode
     )
   )
