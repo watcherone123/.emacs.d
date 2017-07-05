@@ -49,4 +49,16 @@
   (global-set-key (kbd "C-=") 'er/expand-region)
   )
 
+(use-package evil-surround
+  :ensure t
+  :defer t
+  :init
+  (progn
+    (global-evil-surround-mode 1)
+    ;; `s' for surround instead of `substitute'
+    ;; see motivation for this change in the documentation
+    (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
+    (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
+    )
+  )
 (provide 'watcher-better-edit)
