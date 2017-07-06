@@ -77,4 +77,10 @@
     (setq-default save-place t)
     (setq-default save-place-file (expand-file-name "places" watcher-cache-directory))))
 
+(use-package advance-words-count
+  :load-path "site-lisp/advance-words-count/"
+  :defer t
+  :commands (advance-words-count)
+  )
+
 (provide 'watcher-better-defaults)
