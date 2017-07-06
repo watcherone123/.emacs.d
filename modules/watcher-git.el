@@ -11,6 +11,7 @@
     "g f h" 'magit-log-buffer-file
     "g i" 'magit-init
     "g p" 'magit-push
+    "g S" 'magit-stage
     )
   )
 
