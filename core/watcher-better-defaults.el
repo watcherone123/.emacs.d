@@ -57,8 +57,8 @@
 ;;		 ("[cC][mM][dD][pP][rR][oO][xX][yY]" gbk-dos . gbk-dos))))
 
 ;; force horizontal split window
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
+;; (setq split-height-threshold 120)
+(setq split-width-threshold 120)
 
 (use-package autorevert
   :ensure nil
