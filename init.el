@@ -74,6 +74,8 @@
   (message "Missing modules file %s" watcher-modules-file)
   (message "You can get started by copying the bundled example file"))
 
+;;load abbrev file
+(load "~/.emacs.d/site-lisp/watcher-abbrev.el")
 ;;定制文件加载
 (use-package cus-edit
   :defer t
