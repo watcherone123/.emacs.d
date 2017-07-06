@@ -27,17 +27,12 @@
   :defer t
   :ensure t)
 
-(use-package spaceline-config
-  :ensure spaceline
-  ;; :disabled t
-  :defer t
-  :commands (spaceline-spacemacs-theme )
-  :init
-  (spaceline-spacemacs-theme)
+(use-package spaceline-config :ensure spaceline
   :config
+  (spaceline-spacemacs-theme)
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (spaceline-toggle-minor-modes-off)
   )
-
 
 (use-package all-the-icons
   :ensure t
@@ -115,7 +110,7 @@
 
   (watcher/set-keybinds-for-neotree)
   )
-        
+
 (use-package popwin
   :ensure t
   :defer t
