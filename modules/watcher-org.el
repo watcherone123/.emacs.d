@@ -163,8 +163,9 @@ Will work on both org-mode and any mode that accepts plain html."
   )
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-	      (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
+      (quote ((sequence "TODO(t)" "STARTED(s)" "BUG(b)" "|" "DONE(d!/!)")
+	      (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)")
+	      )))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
@@ -173,6 +174,7 @@ Will work on both org-mode and any mode that accepts plain html."
 	      ("WAITING" :foreground "orange" :weight bold)
 	      ("CANCELLED" :foreground "forest green" :weight bold)
 	      ("SOMEDAY" :foreground "forest green" :weight bold)
+	      ("BUG" :foreground "red" :weight bold)
 	      )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
