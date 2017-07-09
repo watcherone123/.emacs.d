@@ -1,8 +1,6 @@
 (use-package winum
   :ensure t
-  :defer t
-  :commands (winum-mode)
-  :init
+  :config
   (setq winum-auto-setup-mode-line nil)
   (add-hook 'after-init-hook 'winum-mode)
   )
@@ -28,6 +26,7 @@
   :ensure t)
 
 (use-package spaceline-config :ensure spaceline
+  :if *win64*
   :config
   (spaceline-spacemacs-theme)
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
@@ -35,6 +34,7 @@
   )
 
 (use-package all-the-icons
+  :if *win64*
   :ensure t
   :defer t
   :init
@@ -44,6 +44,7 @@
   )
 
 (use-package all-the-icons-dired
+  :if *win64*
   :ensure t
   :defer t
   :init
@@ -66,7 +67,6 @@
   :defer 0.1
   :ensure t
   :config
-  (require 'watcher-keybindings)
   (spacemacs-keys-set-leader-keys
     "wg" 'golden-ratio-mode
     )
@@ -75,7 +75,6 @@
 (use-package neotree
   :ensure t
   :defer t
-  :commands (neotree-toggle)
   :init
   (progn
     (setq neo-window-width 32

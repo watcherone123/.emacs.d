@@ -18,6 +18,11 @@
 (when (version< emacs-version "25.2")
   (error "Watcher requires at least GNU Emacs 25.2, but you're running %s" emacs-version))
 
+(setq *is-a-mac* (eq system-type 'darwin))
+(setq *win64* (eq system-type 'windows-nt) )
+(setq *cygwin* (eq system-type 'cygwin) )
+(setq *linux* (or (eq system-type 'gnu/linux) (eq system-type 'linux)) )
+(setq *unix* (or *linux* (eq system-type 'usg-unix-v) (eq system-type 'berkeley-unix)) )
 ;; Always load newest byte code
 (setq load-prefer-newer t)
 

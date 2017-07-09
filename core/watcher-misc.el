@@ -1,5 +1,6 @@
 (require 'cl)
 (use-package chinese-fonts-setup
+  :if *win64*
   :ensure t
   :defer t
   :init

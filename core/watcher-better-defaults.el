@@ -4,6 +4,14 @@
 (and (bound-and-true-p scroll-bar-mode)
      (scroll-bar-mode -1))
 
+(progn
+  (if *win64*
+      (menu-bar-mode)
+    (and (bound-and-true-p menu-bar-mode)
+	 (menu-bar-mode -1))
+    )
+  )
+
 ;;启动最大化
 (progn
   (unless (frame-parameter nil 'fullscreen)
