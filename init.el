@@ -70,6 +70,7 @@
 (require 'watcher-misc)
 ;; (require 'watcher-func)
 (require 'watcher-func-autoloads)
+(require 'spacemacs-keys)
 (require 'watcher-keybindings)
 
 (message "Loading Watcher's modules...")
