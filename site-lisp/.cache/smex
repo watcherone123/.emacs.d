@@ -1,0 +1,25 @@
+
+;; ----- smex-history -----
+(
+ customize
+ counsel-ag
+ update-file-autoloads
+ watcher/find-core-file
+ eval-buffer
+ toggle-menu-bar-mode-from-frame
+ which-key-mode
+)
+
+;; ----- smex-data -----
+(
+ (eval-buffer . 24)
+ (which-key-mode . 4)
+ (describe-font . 1)
+ (describe-variable . 1)
+ (update-file-autoloads . 4)
+ (generate-file-autoloads . 1)
+ (customize . 2)
+ (toggle-menu-bar-mode-from-frame . 4)
+ (watcher/find-core-file . 1)
+ (counsel-ag . 1)
+)
