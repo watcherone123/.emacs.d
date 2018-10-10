@@ -23,6 +23,7 @@
 		 (cons (rx bos "cb" (* (not (any "/"))) "/" (group (+ nonl)) eos) "\\1"))
     (which-key-add-key-based-replacements
       "SPC a"   "appliction"
+      "SPC a s" "shell" 
       "SPC b"   "buffers"
       "SPC f"   "files"
       "SPC f e" "emacs"
@@ -62,7 +63,8 @@
     "a l" 'counsel-colors-emacs
     "a r" 'calendar
     "a c" 'calc
-    "a e" 'eshell
+    "asn" 'aweshell-new
+    "ast" 'aweshell-toggle
     "a p" 'esup
 
     "b b" 'ivy-switch-buffer

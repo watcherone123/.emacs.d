@@ -1,3 +1,13 @@
 ls
-python
-cmder
+pwd
+git status
+git -v
+ls
+cd ..
+ls
+cd ..
+cd ~
+ls
+ls
+pwd
+ls

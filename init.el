@@ -34,6 +34,8 @@
     (require 'init-smex)
     (require 'init-ivy)
     (require 'init-company)
+    (require 'init-shell)
+    (require 'init-cscope)
     (require 'init-keys)
 
     )

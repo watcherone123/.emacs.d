@@ -1,9 +1,3 @@
-(use-package powerline
-  :ensure t
-  :config
-  (powerline-default-theme)
-  )
-
 (use-package window-numbering
   :ensure t
   :config
@@ -43,6 +37,12 @@
   ;;(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
   ;;(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
   )
+
+(use-package awesome-tray
+  :ensure nil
+  :config
+  (awesome-tray-mode 1))
+
 
 (setq-default cursor-type 'bar)
 (global-hl-line-mode 1);;高亮当前行

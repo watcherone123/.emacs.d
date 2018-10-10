@@ -1,25 +1,34 @@
 
 ;; ----- smex-history -----
 (
+ customize-group
+ awesome-tray-mode
  customize
- counsel-ag
- update-file-autoloads
- watcher/find-core-file
  eval-buffer
- toggle-menu-bar-mode-from-frame
- which-key-mode
+ aweshell-toggle
+ aweshell-next
+ aweshell-new
 )
 
 ;; ----- smex-data -----
 (
- (eval-buffer . 24)
+ (eval-buffer . 32)
  (which-key-mode . 4)
  (describe-font . 1)
  (describe-variable . 1)
  (update-file-autoloads . 4)
  (generate-file-autoloads . 1)
- (customize . 2)
+ (customize . 3)
  (toggle-menu-bar-mode-from-frame . 4)
  (watcher/find-core-file . 1)
  (counsel-ag . 1)
+ (helm-M-x . 1)
+ (helm-find . 1)
+ (helm-imenu . 2)
+ (aweshell-new . 3)
+ (aweshell-clear-buffer . 1)
+ (aweshell-next . 1)
+ (aweshell-toggle . 1)
+ (awesome-tray-mode . 4)
+ (customize-group . 2)
 )
