@@ -22,8 +22,10 @@
     ;;核心必要插件
     (require 'init-startup)
     (require 'init-package)
+    (require 'init-font)
     (require 'init-basic)
     (require 'init-awesome-tab)
+    (require 'init-git)
     (require 'init-ui)
     (require 'spacemacs-keys)
     (require 'watcher-funcs)

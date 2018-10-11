@@ -1,5 +1,6 @@
 (use-package window-numbering
   :ensure t
+  :defer t
   :config
   (window-numbering-mode 1)
   )
@@ -40,6 +41,7 @@
 
 (use-package awesome-tray
   :ensure nil
+  :defer 0.01
   :config
   (awesome-tray-mode 1))
 

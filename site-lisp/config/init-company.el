@@ -1,11 +1,12 @@
 (use-package company
   :diminish company-mode
   :ensure t
-  ;; :defer t
+  :defer 0.1
   ;; :commands (company-complete)
-  :init
-  (global-company-mode)
+  ;; :init
   :config
+
+  (global-company-mode)
   (setq company-dabbrev-downcase nil
 	;; make previous/next selection in the popup cycles
 	company-selection-wrap-around t
@@ -58,3 +59,4 @@
   (define-key evil-insert-state-map [remap evil-complete-previous] 'hippie-expand)
   )
 (provide 'init-company)
+

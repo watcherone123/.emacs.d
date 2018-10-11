@@ -1,18 +1,18 @@
 
 ;; ----- smex-history -----
 (
+ magit-commit
+ eval-buffer
+ magit-list-submodules
+ magit-log
+ magit-log-all
  customize-group
  awesome-tray-mode
- customize
- eval-buffer
- aweshell-toggle
- aweshell-next
- aweshell-new
 )
 
 ;; ----- smex-data -----
 (
- (eval-buffer . 32)
+ (eval-buffer . 43)
  (which-key-mode . 4)
  (describe-font . 1)
  (describe-variable . 1)
@@ -31,4 +31,9 @@
  (aweshell-toggle . 1)
  (awesome-tray-mode . 4)
  (customize-group . 2)
+ (magit . 1)
+ (magit-log-all . 1)
+ (magit-log . 3)
+ (magit-list-submodules . 1)
+ (magit-commit . 1)
 )

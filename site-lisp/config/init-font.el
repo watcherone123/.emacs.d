@@ -2,34 +2,39 @@
 
 ;; <https://github.com/tumashu/cnfonts>
 
-(require 'cnfonts)
+(use-package cnfonts
+  :ensure t
+  :defer 0.1
+  :config
+  (set-face-attribute
 
-(set-face-attribute
+   'default nil
 
- 'default nil
+   :font (font-spec :name "-outline-Consolas-bold-italic-normal-mono-*-*-*-*-c-*-iso10646-1"
 
- :font (font-spec :name "-outline-Consolas-bold-italic-normal-mono-*-*-*-*-c-*-iso10646-1"
+		    :weight 'normal
 
-                  :weight 'normal
+		    :slant 'normal
 
-                  :slant 'normal
+		    :size 12.5))
 
-                  :size 12.5))
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
 
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font
 
-  (set-fontset-font
+     (frame-parameter nil 'font)
 
-   (frame-parameter nil 'font)
+     charset
 
-   charset
+     (font-spec :name "-outline-微软雅黑-normal-normal-normal-sans-*-*-*-*-p-*-iso10646-1"
 
-   (font-spec :name "-outline-微软雅黑-normal-normal-normal-sans-*-*-*-*-p-*-iso10646-1"
+		:weight 'normal
 
-              :weight 'normal
+		:slant 'normal
 
-              :slant 'normal
+		:size 15.0)))
+  )
 
-              :size 15.0)))
+
 
 (provide 'init-font)

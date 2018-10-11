@@ -14,9 +14,11 @@
   (package-install 'use-package))
 
 (use-package diminish
+  :defer t
   :ensure t)
 
 (use-package bind-key
+  :defer t
   :ensure t)
 
 (use-package bind-map

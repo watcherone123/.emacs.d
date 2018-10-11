@@ -2,7 +2,7 @@
 (use-package which-key
   :defer t
   :init
-  (which-key-mode)
+  (add-hook 'after-init-hook 'which-key-mode)
   :diminish
   (which-key-mode
    undo-tree-mode
@@ -92,6 +92,21 @@
     "fei" 'watcher/find-user-init-file
     "fec" 'watcher/find-core-file
     "fem" 'watcher/find-modules-file
+    "gb"  'magit-blame+
+    "gcc" 'magit-commit-absorb-popup
+    "gca" 'magit-commit-amend
+    "gff" 'magit-find-file
+    "gfl" 'magit-log-buffer-file
+    "gfd" 'magit-diff-buffer-file-popup
+    "g,"  'magit-init
+    "gl"  'magit-log-all
+    "gs"  'magit-status
+    "gma" 'magit-submodule-add+
+    "gmd" 'magit-submodule-remove+
+    "gml" 'magit-list-submodule
+    "gd"  'magit-discard
+    "gu"  'magit-push-current-to-upstream
+    "gi"  'magit-pull-from-upstream
 
     "vl" 'watcher-clean-empty-lines
     "vb" 'awesome-tab-select-beg-tab

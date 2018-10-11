@@ -105,7 +105,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq ring-bell-function 'ignore);;禁用响铃
 (server-start)                  ;为emacsclient准备使用场景，比如git
-(require 'init-font)
+;; (require 'init-font)
 
 (provide 'init-startup)
 
