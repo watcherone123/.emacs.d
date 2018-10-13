@@ -36,6 +36,7 @@
       "SPC g"   "git"
       "SPC o"   "watcher"
       "SPC v"   "visual"
+      "SPC v t" "Tabs"
       "SPC x"   "text"
       "SPC t"   "toggle"
       "SPC m"   '("major-mode-cmd" . "Major mode commands")
@@ -108,14 +109,16 @@
     "gu"  'magit-push-current-to-upstream
     "gi"  'magit-pull-from-upstream
 
-    "vl" 'watcher-clean-empty-lines
-    "vb" 'awesome-tab-select-beg-tab
-    "ve" 'awesome-tab-select-end-tab
-    "vg" 'awesome-tab-switch-group
-    "vn" 'awesome-tab-forward-tab
-    "vp" 'awesome-tab-backward-tab
-    "vo" 'awesome-tab-kill-other-buffers-in-current-group
-    "va" 'awesome-tab-kill-all-buffers-in-current-group
+    "vtl" 'watcher-clean-empty-lines
+    "vtb" 'awesome-tab-select-beg-tab
+    "vte" 'awesome-tab-select-end-tab
+    "vtg" 'awesome-tab-switch-group
+    "vtn" 'awesome-tab-forward-tab
+    "vtp" 'awesome-tab-backward-tab
+    "vto" 'awesome-tab-kill-other-buffers-in-current-group
+    "vta" 'awesome-tab-kill-all-buffers-in-current-group
+    "ve"  'hydra-expand-region/body
+    
    
 
     "t l" 'linum-mode

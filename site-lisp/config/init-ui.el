@@ -16,6 +16,7 @@
 (use-package monokai-theme
   :ensure t
   :config
+  ;; (setq monokai-foreground monokai-violet )
   (load-theme 'monokai  t)
   )
 
@@ -26,18 +27,7 @@
   :init
   (popwin-mode 1))
 
-(use-package smartparens-config
-  :defer 0.1
-  :diminish smartparens-mode
-  :ensure smartparens
-  :config
-  (progn
-    (show-smartparens-global-mode t)
-    (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "'" nil :actions nil)
-    )
-  ;;(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-  ;;(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-  )
+
 
 (use-package awesome-tray
   :ensure nil
@@ -46,7 +36,7 @@
   (awesome-tray-mode 1))
 
 
-(setq-default cursor-type 'bar)
+;; (setq-default cursor-type 'bar)
 (global-hl-line-mode 1);;高亮当前行
 
 (provide 'init-ui)
