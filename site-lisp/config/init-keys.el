@@ -30,11 +30,13 @@
       "SPC f b" "bookmarks"
       "SPC p"   "projects"
       "SPC h"   "help"
+      "SPC h e" "emacs"
       "SPC w"   "window"
       "SPC SPC" "M-x"
       "SPC q"   "quit "
       "SPC g"   "git"
       "SPC o"   "watcher"
+      "SPC s"   "search"
       "SPC v"   "visual"
       "SPC v t" "Tabs"
       "SPC x"   "text"
@@ -51,15 +53,19 @@
   :defer t
   :config
   (spacemacs-keys-set-leader-keys
-    "SPC" 'smex
+    "SPC" 'counsel-M-x
     "="  'watcher/indent-region-or-buffer
     "TAB" 'watcher/last-buffer
     ;; "/" 'helm-do-ag
-    "0" 'select-window-0
+    ;; "0" 'select-window-0
     "1" 'select-window-1
     "2" 'select-window-2
     "3" 'select-window-3
     "4" 'select-window-4
+    "7" 'awesome-tab-backward-tab
+    "8" 'awesome-tab-forward-tab
+    "9" 'awesome-tab-backward-group
+    "0" 'awesome-tab-forward-group
 
     "a l" 'counsel-colors-emacs
     "a r" 'calendar
@@ -118,6 +124,12 @@
     "vto" 'awesome-tab-kill-other-buffers-in-current-group
     "vta" 'awesome-tab-kill-all-buffers-in-current-group
     "ve"  'hydra-expand-region/body
+
+    "si" 'color-rg-search-input
+    "ss" 'color-rg-search-symbol
+    "sp" 'color-rg-search-project
+    "su" 'color-rg-search-project-rails
+    "xp" 'hydra-menu-paredit/body
     
    
 
@@ -139,6 +151,7 @@
     "h p" 'describe-package
     "h k" 'describe-key
     "h m" 'describe-mode
+    "heb" 'eval-buffer
     )
   )
 (provide 'init-keys)

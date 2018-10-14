@@ -12,6 +12,6 @@
   )
 
 
-(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+(add-hook 'prog-mode-hook 'smartparens-global-mode)
 
 (provide 'init-smartparens)

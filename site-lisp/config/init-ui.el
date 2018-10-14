@@ -1,6 +1,6 @@
 (use-package window-numbering
   :ensure t
-  :defer t
+  :defer 0.2
   :config
   (window-numbering-mode 1)
   )

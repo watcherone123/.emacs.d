@@ -1,7 +1,18 @@
 (defvar best-gc-cons-threshold 4000000 "Best default gc threshold value. Should't be too big.")
 ;; don't GC during startup to save time
 (setq gc-cons-threshold most-positive-fixnum)
-;;声明一些路径便于后续迁移
+
+;; ;; Speed up startup
+;; (defvar default-file-name-handler-alist file-name-handler-alist)
+;; (setq file-name-handler-alist nil)
+;; (setq gc-cons-threshold 80000000)
+;; (add-hook 'emacs-startup-hook
+;;           (lambda ()
+;;             "Restore defalut values after init."
+;;             (setq file-name-handler-alist default-file-name-handler-alist)
+;;             (setq gc-cons-threshold 800000)
+;;             (add-hook 'focus-out-hook 'garbage-collect)))
+;; ;;声明一些路径便于后续迁移
 (defvar watcher-emacs-root-dir (file-truename "~/.emacs.d/site-lisp"))
 (defvar watcher-emacs-config-dir (concat watcher-emacs-root-dir "/config"))
 (defvar watcher-emacs-extension-dir (concat watcher-emacs-root-dir "/extensions"))
@@ -24,22 +35,25 @@
     (require 'init-package)
     (require 'init-font)
     (require 'init-basic)
+    (require 'init-ui)
     (require 'init-awesome-tab)
     (require 'init-git)
-    (require 'init-ui)
     (require 'spacemacs-keys)
     (require 'init-hydra)
     (require 'watcher-funcs)
 
-    ;;(require 'init-dired)
     (require 'init-backup)
     (require 'init-evil)
+    (require 'init-search)
+    (require 'init-dired)
     (require 'init-smex)
-    (require 'init-smartparens)
+    (require 'init-edit)
+    (require 'init-paredit)
     (require 'init-ivy)
     (require 'init-company)
     (require 'init-shell)
-    (require 'init-cscope)
+    ;; (require 'init-python)
+    (require 'init-gtags)
     (require 'init-keys)
 
     )

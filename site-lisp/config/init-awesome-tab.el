@@ -1,7 +1,7 @@
 ;;; Require
 (use-package awesome-tab
   :ensure nil
-  :defer 1
+  :defer 0.5
   :config
   (awesome-tab-mode t)
   )

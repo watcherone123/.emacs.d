@@ -26,7 +26,7 @@
   :bind
   ("C-x C-f" . counsel-find-file)
   ("C-c C-r". counsel-recentf)
-  ;;("M-x" . counsel-M-x)
+  ("M-x" . counsel-M-x)
   ("C-h f" . counsel-describe-function)
   ("C-h v". counsel-describe-variable)
   )
