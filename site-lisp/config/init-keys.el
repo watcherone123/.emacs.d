@@ -1,14 +1,11 @@
-
 (use-package which-key
-  :defer t
-  :init
-  (add-hook 'after-init-hook 'which-key-mode)
+  :ensure t
   :diminish
   (which-key-mode
    undo-tree-mode
    )
-  :ensure t
   :config
+  (add-hook 'after-init-hook 'which-key-mode)
   (progn
     (setq which-key-special-keys nil
 	  which-key-use-C-h-for-paging t
@@ -50,9 +47,11 @@
 
 
 (use-package spacemacs-keys
-  :defer t
+  :ensure nil
+  :commands spacemacs-keys-set-leader-keys
   :config
   (spacemacs-keys-set-leader-keys
+    ";"   'evilnc-comment-operator
     "SPC" 'counsel-M-x
     "="  'watcher/indent-region-or-buffer
     "TAB" 'watcher/last-buffer
@@ -136,6 +135,7 @@
     "t l" 'linum-mode
     "t c" 'watcher-toggle-letter-case
     "t m" 'toggle-menu-bar-mode-from-frame
+    "t u" 'undo-tree-visualize
 
     "q q" 'save-buffers-kill-terminal
     "w /" 'watcher/split-window-horizontally

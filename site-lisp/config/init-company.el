@@ -2,10 +2,7 @@
   :diminish company-mode
   :ensure t
   :defer 0.1
-  ;; :commands (company-complete)
-  ;; :init
   :config
-
   (global-company-mode)
   (setq company-dabbrev-downcase nil
 	;; make previous/next selection in the popup cycles

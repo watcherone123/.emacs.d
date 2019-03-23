@@ -38,4 +38,11 @@
   ("C-s" . swiper)
   )
 
+(use-package smex
+  :ensure t
+  :config
+  (setq smex-save-file (expand-file-name "smex" watcher-cache-directory))
+  )
+
+
 (provide 'init-ivy)

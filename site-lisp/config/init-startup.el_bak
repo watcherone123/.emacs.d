@@ -1,0 +1,29 @@
+(require 'cl-lib)
+
+(add-hook 'emacs-startup-hook 'toggle-frame-maximized)
+(setq ad-redefinition-action 'accept)   ;不要烦人的 redefine warning
+(setq frame-resize-pixelwise t) ;设置缩放的模式,避免Mac平台最大化窗口以后右边和下边有空隙
+(tool-bar-mode -1)              ;禁用工具栏
+;;(menu-bar-mode -1)              ;禁用菜单栏
+(scroll-bar-mode -1)            ;禁用滚动条
+(setq inhibit-splash-screen 1) ;; 关闭启动帮助画面
+(blink-cursor-mode -1);;指针不闪动
+(setq initial-scratch-message "") ;关闭启动空白buffer, 这个buffer会干扰session恢复
+(setq default-major-mode 'text-mode)    ;设置默认地主模式为TEXT模式
+(setq mouse-yank-at-point t)            ;粘贴于光标处,而不是鼠标指针处
+(setq x-select-enable-clipboard t)      ;支持emacs和外部程序的粘贴
+;;配置窗口标题
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+		   (abbreviate-file-name (buffer-file-name))
+		 "%b"))))
+
+(add-hook 'prog-mode-hook 'global-linum-mode)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq ring-bell-function 'ignore);;禁用响铃
+(server-start)                  ;为emacsclient准备使用场景，比如git
+;; (require 'init-font)
+
+(provide 'init-startup)
+
+;;; init-startup.el ends here

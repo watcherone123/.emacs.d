@@ -1,5 +1,4 @@
 (use-package smex
-  :defer t
   :ensure t
   :bind ("M-x" . smex)
   :config
