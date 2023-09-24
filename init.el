@@ -581,6 +581,10 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   :interpreter ("lua" . lua-mode)
   )
 
+(use-package treesit-auto
+    :hook (after-init . global-treesit-auto-mode)
+    :init (setq treesit-auto-install 'prompt))
+
 (add-to-list 'load-path (concat sky-emacs-pkg-dir "/" "awesome-pair"))
 (require 'awesome-pair)
 (dolist (hook (list
