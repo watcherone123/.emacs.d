@@ -1,0 +1,15 @@
+elpa/
+eshell/
+transient/
+auto-save-list/
+blink-search.db
+history
+projectile.cache
+projectile-bookmarks.eld
+/eln-cache
+*.elc
+*.pyc
+cnfonts/
+auto-save-list/
+undohist/
+recentf
