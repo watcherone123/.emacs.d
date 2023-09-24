@@ -11,6 +11,11 @@
       w32-use-native-image-API t         ; use native w32 API
       w32-pipe-read-delay 0              ; faster IPC
       w32-pipe-buffer-size (* 64 1024))
+
+(defvar sky-emacs-root-dir (file-truename "~/.emacs.d/site-lisp"))
+(defvar sky-emacs-config-dir (concat sky-emacs-root-dir "/config"))
+(defvar sky-emacs-pkg-dir (concat sky-emacs-root-dir "/pkg"))
+
 (defvar better-gc-cons-threshold 134217728 ; 128mb
   "The default value to use for `gc-cons-threshold'.
 If you experience freezing, decrease this. If you experience stuttering, increase this.")
@@ -90,8 +95,12 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 ;;                          ("nongnu" . "http://mirrors.bfsu.edu.cn/elpa/nongnu/")
 ;;                          ("melpa"  . "http://mirrors.bfsu.edu.cn/elpa/melpa/")))
 (setq package-archives '(("gnu" . "https://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/gnu/")
-                        ("melpa" . "https://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/melpa/")))
-(package-initialize)
+                         ("melpa" . "https://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/melpa/")))
+
+;; Initialize packages
+(unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
+  (setq package-enable-at-startup nil)          ; To prevent initializing twice
+  (package-initialize))
 
 ;; (unless (package-installed-p 'use-package)
 ;;   (package-refresh-contents)
@@ -279,17 +288,29 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 	  (expand-file-name (locate-dominating-file filepath ".myproject")))))
 
 ;; pip install epc orjson sexpdata six paramiko
-(add-to-list 'load-path "~/emacs-plugin/lsp-bridge")
-(require 'lsp-bridge)
-(add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("html") . "html_emmet"))
-(add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("css") . "css_emmet"))
-(setq lsp-bridge-python-command "python")
-(setq acm-enable-quick-access t)
-;; (setq acm-enable-doc nil)
-;; (global-lsp-bridge-mode)
-(add-to-list 'prog-mode-hook 'lsp-bridge-mode)
+(use-package lsp-bridge
+  :load-path "site-lisp/pkg/lsp-bridge"
+  :init
 
-(add-to-list 'load-path "~/emacs-plugin/auto-save") ; add auto-save to your load-path
+  (add-to-list 'prog-mode-hook 'lsp-bridge-mode)
+  :config
+  (require'lsp-bridge)
+  (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("html") . "html_emmet"))
+  (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("css") . "css_emmet"))
+  (setq lsp-bridge-python-command "python")
+  (setq acm-enable-quick-access t)
+  )
+;; (add-to-list 'load-path (concat sky-emacs-pkg-dir "/" "lsp-bridge"))
+;; (require 'lsp-bridge)
+;; (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("html") . "html_emmet"))
+;; (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("css") . "css_emmet"))
+;; (setq lsp-bridge-python-command "python")
+;; (setq acm-enable-quick-access t)
+;; ;; (setq acm-enable-doc nil)
+;; ;; (global-lsp-bridge-mode)
+;; (add-to-list 'prog-mode-hook 'lsp-bridge-mode)
+
+(add-to-list 'load-path (concat sky-emacs-pkg-dir "/" "auto-save"))
 (require 'auto-save)
 (auto-save-enable)
 (setq auto-save-silent t)   ; quietly save
@@ -354,6 +375,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
     ;;(evil-set-leader '(normal visual motion) (kbd "SPC") t)
     (setq evil-move-beyond-eol t)
     (evil-define-key '(normal visual motion) 'global (kbd "RET") 'open-newline-below)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>;") 'evilnc-comment-or-uncomment-lines)
     ;; file
     (evil-define-key '(normal visual motion) 'global (kbd "<leader>ff") 'find-file)
     (evil-define-key '(normal visual motion) 'global (kbd "<leader>fo") 'find-file-other-window)
@@ -373,7 +395,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
     (evil-define-key '(normal visual motion) 'global (kbd "<leader>ss") 'consult-line)
     ;; (evil-define-key '(normal visual motion) 'global (kbd "<leader>sa") 'blink-search)
     (evil-define-key '(normal visual motion) 'global (kbd "<leader>sn") 'consult-imenu)  ;; name
-    (evil-define-key '(normal visual motion) 'global (kbd "<leader>qq") 'consult-ripgrep) ;; query
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>sr") 'consult-ripgrep) ;; query
     ;; help
     (evil-define-key '(normal visual motion) 'global (kbd "<leader>hf") 'helpful-callable)
     (evil-define-key '(normal visual motion) 'global (kbd "<leader>hv") 'helpful-variable)
@@ -391,14 +413,14 @@ If you experience freezing, decrease this. If you experience stuttering, increas
     ;; (evil-define-key '(normal visual motion) 'global (kbd "<leader>pq") 'projectile-ripgrep)
     (evil-define-key '(normal visual motion) 'global (kbd "<leader>dd") 'dired)
     ;; window
-    (evil-define-key '(normal visual motion) 'global (kbd "M-1") 'winum-select-window-1)
-    (evil-define-key '(normal visual motion) 'global (kbd "M-2") 'winum-select-window-2)
-    (evil-define-key '(normal visual motion) 'global (kbd "M-3") 'winum-select-window-3)
-    (evil-define-key '(normal visual motion) 'global (kbd "M-4") 'winum-select-window-4)
-    (evil-define-key '(normal visual motion) 'global (kbd "M-0") 'kill-buffer-and-window)
-    (evil-define-key '(normal visual motion) 'global (kbd "M-o") 'delete-other-windows)
-    (evil-define-key '(normal visual motion) 'global (kbd "M-/") 'split-window-right)
-    (evil-define-key '(normal visual motion) 'global (kbd "M--") 'split-window-below)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>1") 'winum-select-window-1)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>2") 'winum-select-window-2)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>3") 'winum-select-window-3)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>4") 'winum-select-window-4)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>wd") 'kill-buffer-and-window)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>wo") 'delete-other-windows)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>w/") 'split-window-right)
+    (evil-define-key '(normal visual motion) 'global (kbd "<leader>w-") 'split-window-below)
     (evil-define-key '(normal visual motion) 'global (kbd "<localleader>h") 'auto-highlight-symbol-mode)
     (evil-define-key '(normal visual motion) 'global (kbd "<localleader>l") 'toggle-truncate-lines)
     ;; org mode
@@ -478,7 +500,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 
 ;; 批量替换
 (use-package wgrep
-  :ensure t
+  :ensure
   :bind
   (
    :map grep-mode-map
@@ -538,13 +560,16 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   :commands (magit-status magit)
   :ensure t)
 
-(use-package php-mode
+(use-package cmake-mode
   :ensure t
-  :mode ("\\.php\\'" . php-mode))
+  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
+	 ("\\.cmake\\'" . cmake-mode)))
 
-(use-package go-mode
+(use-package gn-mode
   :ensure t
-  :mode ("\\.go\\'" . go-mode))
+  :mode (("\\.gn\\'" . gn-mode)
+	 ("\\.gni\\'" . gn-mode))
+  )
 
 (use-package rust-mode
   :ensure t
@@ -556,7 +581,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   :interpreter ("lua" . lua-mode)
   )
 
-(add-to-list 'load-path "~/emacs-plugin/awesome-pair") ; add awesome-pair to your load-path
+(add-to-list 'load-path (concat sky-emacs-pkg-dir "/" "awesome-pair"))
 (require 'awesome-pair)
 (dolist (hook (list
                'c-mode-common-hook
@@ -726,16 +751,16 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 ;;   (garbage-collect))
 ;; (run-with-idle-timer 4 nil #'my-cleanup-gc)
 (message "*** Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time (time-subtract after-init-time before-init-time)))
-           gcs-done)
+         (format "%.2f seconds"
+                 (float-time (time-subtract after-init-time before-init-time)))
+         gcs-done)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(avy evil-multiedit iedit evil-matchit evil-snipe evil-anzu format-all block-nav org-mode consult-yasnippet consult-lsp flymake-elisp-config whitespace4r zenburn-theme yasnippet-snippets winum which-key vundo vertico treesit-auto smartparens shackle rust-mode restart-emacs rainbow-delimiters quickrun projectile-ripgrep popper paredit-everywhere orderless meow markdown-mode marginalia magit lua-mode keycast helpful go-mode evil-surround evil-nerd-commenter evil-escape embark-consult elisp-demos elisp-benchmarks ef-themes dumb-jump doom-modeline dirvish counsel-etags cnfonts citre ace-window)))
+   '(gn-mode cmake-mode avy evil-multiedit iedit evil-matchit evil-snipe evil-anzu format-all block-nav org-mode consult-yasnippet consult-lsp flymake-elisp-config whitespace4r zenburn-theme yasnippet-snippets winum which-key vundo vertico treesit-auto smartparens shackle rust-mode restart-emacs rainbow-delimiters quickrun projectile-ripgrep popper paredit-everywhere orderless meow markdown-mode marginalia magit lua-mode keycast helpful go-mode evil-surround evil-nerd-commenter evil-escape embark-consult elisp-demos elisp-benchmarks ef-themes dumb-jump doom-modeline dirvish counsel-etags cnfonts citre ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
