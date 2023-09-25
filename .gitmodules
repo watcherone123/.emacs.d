@@ -1,0 +1,9 @@
+[submodule "site-lisp/pkg/fingertip"]
+	path = site-lisp/pkg/fingertip
+	url = https://github.com/manateelazycat/fingertip.git
+[submodule "site-lisp/pkg/lsp-bridge"]
+	path = site-lisp/pkg/lsp-bridge
+	url = https://github.com/manateelazycat/lsp-bridge.git
+[submodule "site-lisp/pkg/auto-save"]
+	path = site-lisp/pkg/auto-save
+	url = https://github.com/manateelazycat/auto-save.git

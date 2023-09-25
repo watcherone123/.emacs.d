@@ -300,26 +300,20 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   (setq lsp-bridge-python-command "python")
   (setq acm-enable-quick-access t)
   )
-;; (add-to-list 'load-path (concat sky-emacs-pkg-dir "/" "lsp-bridge"))
-;; (require 'lsp-bridge)
-;; (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("html") . "html_emmet"))
-;; (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("css") . "css_emmet"))
-;; (setq lsp-bridge-python-command "python")
-;; (setq acm-enable-quick-access t)
-;; ;; (setq acm-enable-doc nil)
-;; ;; (global-lsp-bridge-mode)
-;; (add-to-list 'prog-mode-hook 'lsp-bridge-mode)
 
-(add-to-list 'load-path (concat sky-emacs-pkg-dir "/" "auto-save"))
-(require 'auto-save)
-(auto-save-enable)
-(setq auto-save-silent t)   ; quietly save
-(setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
-(setq auto-save-disable-predicates
-      '((lambda ()
-	  (string-suffix-p
-	   "gpg"
-	   (file-name-extension (buffer-name)) t))))
+(use-package auto-save
+  :load-path "site-lisp/pkg/auto-save"
+  :config
+  (require 'auto-save)
+  (auto-save-enable)
+  (setq auto-save-silent t)   ; quietly save
+  (setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
+  (setq auto-save-disable-predicates
+	'((lambda ()
+	    (string-suffix-p
+	     "gpg"
+	     (file-name-extension (buffer-name)) t))))
+  )
 
 (defun consult-directory-externally (file)
   (interactive)
@@ -582,158 +576,98 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   )
 
 (use-package treesit-auto
-    :hook (after-init . global-treesit-auto-mode)
-    :init (setq treesit-auto-install 'prompt))
+  :hook (after-init . global-treesit-auto-mode)
+  :init (setq treesit-auto-install 'prompt))
 
-(add-to-list 'load-path (concat sky-emacs-pkg-dir "/" "awesome-pair"))
-(require 'awesome-pair)
-(dolist (hook (list
-               'c-mode-common-hook
-               'c-mode-hook
-               'c++-mode-hook
-               'java-mode-hook
-               'haskell-mode-hook
-               'emacs-lisp-mode-hook
-               'lisp-interaction-mode-hook
-               'lisp-mode-hook
-               'maxima-mode-hook
-               'ielm-mode-hook
-               'sh-mode-hook
-               'makefile-gmake-mode-hook
-               'php-mode-hook
-               'python-mode-hook
-               'js-mode-hook
-               'go-mode-hook
-               'qml-mode-hook
-               'jade-mode-hook
-               'css-mode-hook
+(use-package fingertip
+  :load-path "site-lisp/pkg/fingertip"
+  :config
+  ;; (require 'fingertip)
+  (dolist (hook (list
+		 'c-mode-common-hook
+		 'c-mode-hook
+		 'c++-mode-hook
+		 'java-mode-hook
+		 'haskell-mode-hook
+		 'emacs-lisp-mode-hook
+		 'lisp-interaction-mode-hook
+		 'lisp-mode-hook
+		 'maxima-mode-hook
+		 'ielm-mode-hook
+		 'sh-mode-hook
+		 'makefile-gmake-mode-hook
+		 'php-mode-hook
+		 'python-mode-hook
+		 'js-mode-hook
+		 'go-mode-hook
+		 'qml-mode-hook
+		 'jade-mode-hook
+		 'css-mode-hook
                'ruby-mode-hook
                'coffee-mode-hook
                'rust-mode-hook
+               'rust-ts-mode-hook
                'qmake-mode-hook
                'lua-mode-hook
                'swift-mode-hook
-               'minibuffer-inactive-mode-hook
-	       'web-mode-hook
+               'web-mode-hook
+               'markdown-mode-hook
+               'llvm-mode-hook
+               'conf-toml-mode-hook
+               'nim-mode-hook
+               'typescript-mode-hook
+               'c-ts-mode-hook
+               'c++-ts-mode-hook
+               'cmake-ts-mode-hook
+               'toml-ts-mode-hook
+               'css-ts-mode-hook
+               'js-ts-mode-hook
+               'json-ts-mode-hook
+               'python-ts-mode-hook
+               'bash-ts-mode-hook
+               'typescript-ts-mode-hook
                ))
-  (add-hook hook '(lambda () (awesome-pair-mode 1))))
-(define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
-(define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)
-;; (define-key awesome-pair-mode-map (kbd "{") 'awesome-pair-open-curly)
-(define-key awesome-pair-mode-map (kbd ")") 'awesome-pair-close-round)
-(define-key awesome-pair-mode-map (kbd "]") 'awesome-pair-close-bracket)
-(define-key awesome-pair-mode-map (kbd "}") 'awesome-pair-close-curly)
-(define-key awesome-pair-mode-map (kbd "=") 'awesome-pair-equal)
+  (add-hook hook #'(lambda () (fingertip-mode 1))))
 
-;; (define-key awesome-pair-mode-map (kbd "%") 'awesome-pair-match-paren)
-;; (define-key awesome-pair-mode-map (kbd "\"") 'awesome-pair-double-quote)
+(define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
+(define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
+(define-key fingertip-mode-map (kbd "{") 'fingertip-open-curly)
+(define-key fingertip-mode-map (kbd ")") 'fingertip-close-round)
+(define-key fingertip-mode-map (kbd "]") 'fingertip-close-bracket)
+(define-key fingertip-mode-map (kbd "}") 'fingertip-close-curly)
+(define-key fingertip-mode-map (kbd "=") 'fingertip-equal)
 
-;; (define-key awesome-pair-mode-map (kbd "SPC") 'awesome-pair-space)
-;; 设置之后回车只换行不补全
-(define-key awesome-pair-mode-map (kbd "RET") 'awesome-pair-newline)
+(define-key fingertip-mode-map (kbd "（") 'fingertip-open-chinese-round)
+(define-key fingertip-mode-map (kbd "「") 'fingertip-open-chinese-bracket)
+(define-key fingertip-mode-map (kbd "【") 'fingertip-open-chinese-curly)
+(define-key fingertip-mode-map (kbd "）") 'fingertip-close-chinese-round)
+(define-key fingertip-mode-map (kbd "」") 'fingertip-close-chinese-bracket)
+(define-key fingertip-mode-map (kbd "】") 'fingertip-close-chinese-curly)
 
-(define-key awesome-pair-mode-map (kbd "C-S-d") 'awesome-pair-backward-delete)
-(define-key awesome-pair-mode-map (kbd "C-d") 'awesome-pair-forward-delete)
-(define-key awesome-pair-mode-map (kbd "C-k") 'awesome-pair-kill)
+(define-key fingertip-mode-map (kbd "%") 'fingertip-match-paren)
+(define-key fingertip-mode-map (kbd "\"") 'fingertip-double-quote)
+(define-key fingertip-mode-map (kbd "'") 'fingertip-single-quote)
 
-(define-key awesome-pair-mode-map (kbd "M-\"") 'awesome-pair-wrap-double-quote)
-(define-key awesome-pair-mode-map (kbd "M-[") 'awesome-pair-wrap-bracket)
-(define-key awesome-pair-mode-map (kbd "M-{") 'awesome-pair-wrap-curly)
-(define-key awesome-pair-mode-map (kbd "M-(") 'awesome-pair-wrap-round)
-(define-key awesome-pair-mode-map (kbd "M-)") 'awesome-pair-unwrap)
+(define-key fingertip-mode-map (kbd "SPC") 'fingertip-space)
+(define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
 
-(define-key awesome-pair-mode-map (kbd "M-p") 'awesome-pair-jump-right)
-(define-key awesome-pair-mode-map (kbd "M-n") 'awesome-pair-jump-left)
+(define-key fingertip-mode-map (kbd "M-o") 'fingertip-backward-delete)
+(define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
+(define-key fingertip-mode-map (kbd "C-k") 'fingertip-kill)
 
-;; custom tag
-(defun awesome-pair-open-percent ()
-  (interactive)
-  (cond
-   ((derived-mode-p 'web-mode)
-    (insert "%%")
-    (backward-char))
-   (t
-    (insert "%")
-    )
-   ))
+(define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
+(define-key fingertip-mode-map (kbd "M-'") 'fingertip-wrap-single-quote)
+(define-key fingertip-mode-map (kbd "M-[") 'fingertip-wrap-bracket)
+(define-key fingertip-mode-map (kbd "M-{") 'fingertip-wrap-curly)
+(define-key fingertip-mode-map (kbd "M-(") 'fingertip-wrap-round)
+(define-key fingertip-mode-map (kbd "M-)") 'fingertip-unwrap)
 
-(defun awesome-pair-single-quote ()
-  (interactive)
-  (cond
-   ((derived-mode-p 'emacs-lisp-mode)
-    (insert "'"))
-   ((derived-mode-p 'web-mode)
-    (insert "''")
-    (backward-char))
-   ((awesome-pair-in-string-p)
-    (insert "'"))
-   (t
-    (insert "''")
-    (backward-char)
-    )
-   ))
+(define-key fingertip-mode-map (kbd "M-p") 'fingertip-jump-right)
+(define-key fingertip-mode-map (kbd "M-n") 'fingertip-jump-left)
+(define-key fingertip-mode-map (kbd "M-:") 'fingertip-jump-out-pair-and-newline)
 
-(defun awesome-pair-double-quote-my ()
-  (interactive)
-  (insert "\"\"")
-  (backward-char)
+(define-key fingertip-mode-map (kbd "C-j") 'fingertip-jump-up)
   )
-
-(defun awesome-pair-open-curly-my ()
-  (interactive)
-  (insert "{}")
-  (backward-char)
-  )
-
-(define-key awesome-pair-mode-map (kbd "{") 'awesome-pair-open-curly-my)
-(define-key awesome-pair-mode-map (kbd "%") 'awesome-pair-open-percent)
-(define-key awesome-pair-mode-map (kbd "'") 'awesome-pair-single-quote)
-(define-key awesome-pair-mode-map (kbd "\"") 'awesome-pair-double-quote-my)
-
-;; (add-to-list 'load-path "~/emacs-plugin/one-key")
-;; (add-to-list 'load-path "~/emacs-plugin/thing-edit")
-;; (setq one-key-items-per-line 3)
-;; (require 'one-key)
-;; (require 'thing-edit)
-;; (one-key-create-menu
-;;  "THING-EDIT"
-;;  '(
-;;    ;; Copy.
-;;    (("w" . "Copy Word") . thing-copy-word)
-;;    (("s" . "Copy Symbol") . thing-copy-symbol)
-;;    (("m" . "Copy Email") . thing-copy-email)
-;;    (("f" . "Copy Filename") . thing-copy-filename)
-;;    (("u" . "Copy URL") . thing-copy-url)
-;;    (("x" . "Copy Sexp") . thing-copy-sexp)
-;;    (("g" . "Copy Page") . thing-copy-page)
-;;    (("t" . "Copy Sentence") . thing-copy-sentence)
-;;    (("o" . "Copy Whitespace") . thing-copy-whitespace)
-;;    (("i" . "Copy List") . thing-copy-list)
-;;    (("c" . "Copy Comment") . thing-copy-comment)
-;;    (("h" . "Copy Function") . thing-copy-defun)
-;;    (("p" . "Copy Parentheses") . thing-copy-parentheses)
-;;    (("l" . "Copy Line") . thing-copy-line)
-;;    (("a" . "Copy To Line Begin") . thing-copy-to-line-beginning)
-;;    (("e" . "Copy To Line End") . thing-copy-to-line-end)
-;;    ;; Cut.
-;;    (("W" . "Cut Word") . thing-cut-word)
-;;    (("S" . "Cut Symbol") . thing-cut-symbol)
-;;    (("M" . "Cut Email") . thing-cut-email)
-;;    (("F" . "Cut Filename") . thing-cut-filename)
-;;    (("U" . "Cut URL") . thing-cut-url)
-;;    (("X" . "Cut Sexp") . thing-cut-sexp)
-;;    (("G" . "Cut Page") . thing-cut-page)
-;;    (("T" . "Cut Sentence") . thing-cut-sentence)
-;;    (("O" . "Cut Whitespace") . thing-cut-whitespace)
-;;    (("I" . "Cut List") . thing-cut-list)
-;;    (("C" . "Cut Comment") . thing-cut-comment)
-;;    (("H" . "Cut Function") . thing-cut-defun)
-;;    (("P" . "Cut Parentheses") . thing-cut-parentheses)
-;;    (("L" . "Cut Line") . thing-cut-line)
-;;    (("A" . "Cut To Line Begin") . thing-cut-to-line-beginning)
-;;    (("E" . "Cut To Line End") . thing-cut-to-line-end)
-;;    )
-;;  t)
 
 ;; (use-package esup
 ;;    :ensure t)
