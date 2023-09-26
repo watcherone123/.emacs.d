@@ -75,6 +75,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   (find-file "~/.emacs.d/init.el"))
 (global-set-key (kbd "<f12>") 'open-init-file)
 
+
 (defun open-newline-below (arg)
   "Move to the next line (like vi) and then opens a line."
   (interactive "p")
@@ -112,6 +113,21 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 
 (use-package no-littering)
 
+(use-package saveplace
+  :config (save-place-mode))
+
+(use-package savehist
+  :custom (savehist-additional-variables
+           '(last-kbd-macro
+             register-alist
+             (comint-input-ring        . 50)
+             (dired-regexp-history     . 20)
+             (face-name-history        . 20)
+             (kill-ring                . 20)
+             (regexp-search-ring       . 20)
+             (search-ring              . 20)))
+  :config (savehist-mode))
+
 (use-package custom
   :ensure nil
   :no-require t
@@ -128,6 +144,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 	    (define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
 	    (define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
 	    (setq cnfonts-personal-fontnames '(() ("更纱黑体 SC") () () ()))
+	    (setq cnfonts-directory (concat no-littering-etc-directory "cnfonts/"))
 	    ))
 
 (use-package expand-region
@@ -135,9 +152,17 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   :commands (er/expand-region er/contract-region)
   )
 
-(setq dired-listing-switches "-alh")
+(use-package loaddefs
+  :ensure nil
+  :config
+  (setq dired-listing-switches "-alh")
+  )
 
-(global-so-long-mode 1)
+(use-package so-long
+  :ensure nil
+  :config
+  (global-so-long-mode 1)
+  )
 
 (use-package savehist
   :ensure nil
@@ -167,12 +192,85 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   (ef-themes-select 'ef-duo-light)
   )
 
+;; (use-package color-theme-sanityinc-tomorrow
+;;   :custom
+;;   (custom-safe-themes t)
+;;   (custom-enabled-themes '(sanityinc-tomorrow-day))
+;;   :hook (after-init . sanityinc-tomorrow-day)
+;;   :config
+;;   (defun reapply-themes ()
+;;     "Forcibly load the themes listed in `custom-enabled-themes'."
+;;     (dolist (theme custom-enabled-themes)
+;;       (unless (custom-theme-p theme)
+;;         (load-theme theme)))
+;;     (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes))))
+
+;;   (defun light ()
+;;     "Activate a light color theme."
+;;     (interactive)
+;;     (setq custom-enabled-themes '(sanityinc-tomorrow-day))
+;;     (reapply-themes))
+
+;;   (defun dark ()
+;;     "Activate a dark color theme."
+;;     (interactive)
+;;     (setq custom-enabled-themes '(sanityinc-tomorrow-bright))
+;;     (reapply-themes)))
+
+(use-package beacon
+  :custom
+  (beacon-lighter "")
+  (beacon-size 20)
+  (beacon-blink-when-window-scrolls nil)
+  :config (beacon-mode 1))
+
 (use-package recentf
   :ensure nil
   :custom
-  (recentf-max-saved-items 300)
-  (recentf-auto-cleanup 'never)
-  :config (recentf-mode t))
+  (recentf-max-saved-items 1000)
+  (recentf-exclude `("/tmp/" "/ssh:" ,(concat user-emacs-directory "lib/.*-autoloads\\.el\\'")))
+  :config
+  (add-to-list 'recentf-exclude no-littering-var-directory)
+  (add-to-list 'recentf-exclude no-littering-etc-directory)
+  (recentf-mode))
+
+
+(use-package minibuffer
+  :ensure nil
+  :custom
+  (read-file-name-completion-ignore-case t)
+  (read-buffer-completion-ignore-case t)
+  (completion-ignore-case t)
+  (enable-recursive-minibuffers t)
+  (inhibit-message-regexps '("^Saving file" "^Wrote"))
+  (set-message-functions '(inhibit-message))
+  :init (minibuffer-depth-indicate-mode))
+
+
+;;; Dired mode
+
+(use-package dired
+  :ensure nil
+  :demand t
+  :hook (dired-mode . dired-hide-details-mode)
+  :custom
+  (dired-dwim-target t)
+  (dired-listing-switches "-alGhv --group-directories-first")
+  (dired-recursive-copies 'always)
+  (dired-kill-when-opening-new-dired-buffer t))
+
+(use-package diredfl
+  :hook (dired-mode . diredfl-global-mode))
+
+(use-package exec-path-from-shell
+  :when (or (memq window-system '(mac ns x))
+            (unless (memq system-type '(ms-dos windows-nt))
+              (daemonp)))
+  :custom (exec-path-from-shell-arguments '("-l"))
+  :config
+  (dolist (var '("GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
+    (add-to-list 'exec-path-from-shell-variables var))
+  (exec-path-from-shell-initialize))
 
 (use-package helpful
   :ensure t
@@ -304,7 +402,6 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 
   (add-to-list 'prog-mode-hook 'lsp-bridge-mode)
   :config
-  (require'lsp-bridge)
   (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("html") . "html_emmet"))
   (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("css") . "css_emmet"))
   (setq lsp-bridge-python-command "python")
@@ -584,9 +681,22 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   :mode ("\\.lua\\'" . lua-mode)
   :interpreter ("lua" . lua-mode)
   )
-
+;;; Tree-sitter support
+;; https://git.savannah.gnu.org/cgit/emacs.git/tree/admin/notes/tree-sitter/starter-guide?h=emacs-29
 (use-package treesit
   :ensure nil
+  :custom
+  (major-mode-remap-alist
+           '((c-mode          . c-ts-mode)
+          (c++-mode        . c++-ts-mode)
+          (cmake-mode      . cmake-ts-mode)
+          (conf-toml-mode  . toml-ts-mode)
+          (css-mode        . css-ts-mode)
+          (js-mode         . js-ts-mode)
+          (js-json-mode    . json-ts-mode)
+          (python-mode     . python-ts-mode)
+          (sh-mode         . bash-ts-mode)
+          (typescript-mode . typescript-ts-mode)))
   :config
   ;; M-x `treesit-install-language-grammar` to install language grammar.
   (setq treesit-language-source-alist
@@ -620,18 +730,6 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 	  (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
 	  (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))
 	  (zig . ("https://github.com/GrayJack/tree-sitter-zig"))))
-
-  (setq major-mode-remap-alist
-	'((c-mode          . c-ts-mode)
-          (c++-mode        . c++-ts-mode)
-          (cmake-mode      . cmake-ts-mode)
-          (conf-toml-mode  . toml-ts-mode)
-          (css-mode        . css-ts-mode)
-          (js-mode         . js-ts-mode)
-          (js-json-mode    . json-ts-mode)
-          (python-mode     . python-ts-mode)
-          (sh-mode         . bash-ts-mode)
-          (typescript-mode . typescript-ts-mode)))
 
   (add-hook 'emacs-lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
   )
