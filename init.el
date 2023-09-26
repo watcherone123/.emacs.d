@@ -110,6 +110,16 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 
 (add-to-list 'prog-mode-hook #'hs-minor-mode)
 
+(use-package no-littering)
+
+(use-package custom
+  :ensure nil
+  :no-require t
+  :config
+  (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
+  (when (file-exists-p custom-file)
+    (load custom-file)))
+
 ;;  consolas:11 + 更纱黑体 SC:10.5
 (use-package cnfonts
   :ensure t
@@ -575,9 +585,56 @@ If you experience freezing, decrease this. If you experience stuttering, increas
   :interpreter ("lua" . lua-mode)
   )
 
-(use-package treesit-auto
-  :hook (after-init . global-treesit-auto-mode)
-  :init (setq treesit-auto-install 'prompt))
+(use-package treesit
+  :ensure nil
+  :config
+  ;; M-x `treesit-install-language-grammar` to install language grammar.
+  (setq treesit-language-source-alist
+	'((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))
+	  (c . ("https://github.com/tree-sitter/tree-sitter-c"))
+	  (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
+	  (css . ("https://github.com/tree-sitter/tree-sitter-css"))
+	  (cmake . ("https://github.com/uyha/tree-sitter-cmake"))
+	  (csharp     . ("https://github.com/tree-sitter/tree-sitter-c-sharp.git"))
+	  (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile"))
+	  (elisp . ("https://github.com/Wilfred/tree-sitter-elisp"))
+	  (go . ("https://github.com/tree-sitter/tree-sitter-go"))
+	  (gomod      . ("https://github.com/camdencheek/tree-sitter-go-mod.git"))
+	  (html . ("https://github.com/tree-sitter/tree-sitter-html"))
+	  (java       . ("https://github.com/tree-sitter/tree-sitter-java.git"))
+	  (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
+	  (json . ("https://github.com/tree-sitter/tree-sitter-json"))
+	  (lua . ("https://github.com/Azganoth/tree-sitter-lua"))
+	  (make . ("https://github.com/alemuller/tree-sitter-make"))
+	  (markdown . ("https://github.com/MDeiml/tree-sitter-markdown" nil "tree-sitter-markdown/src"))
+	  (ocaml . ("https://github.com/tree-sitter/tree-sitter-ocaml" nil "ocaml/src"))
+	  (org . ("https://github.com/milisims/tree-sitter-org"))
+	  (python . ("https://github.com/tree-sitter/tree-sitter-python"))
+	  (php . ("https://github.com/tree-sitter/tree-sitter-php"))
+	  (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src"))
+	  (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "tsx/src"))
+	  (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby"))
+	  (rust . ("https://github.com/tree-sitter/tree-sitter-rust"))
+	  (sql . ("https://github.com/m-novikov/tree-sitter-sql"))
+	  (vue . ("https://github.com/merico-dev/tree-sitter-vue"))
+	  (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
+	  (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))
+	  (zig . ("https://github.com/GrayJack/tree-sitter-zig"))))
+
+  (setq major-mode-remap-alist
+	'((c-mode          . c-ts-mode)
+          (c++-mode        . c++-ts-mode)
+          (cmake-mode      . cmake-ts-mode)
+          (conf-toml-mode  . toml-ts-mode)
+          (css-mode        . css-ts-mode)
+          (js-mode         . js-ts-mode)
+          (js-json-mode    . json-ts-mode)
+          (python-mode     . python-ts-mode)
+          (sh-mode         . bash-ts-mode)
+          (typescript-mode . typescript-ts-mode)))
+
+  (add-hook 'emacs-lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
+  )
 
 (use-package fingertip
   :load-path "site-lisp/pkg/fingertip"
@@ -603,70 +660,70 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 		 'qml-mode-hook
 		 'jade-mode-hook
 		 'css-mode-hook
-               'ruby-mode-hook
-               'coffee-mode-hook
-               'rust-mode-hook
-               'rust-ts-mode-hook
-               'qmake-mode-hook
-               'lua-mode-hook
-               'swift-mode-hook
-               'web-mode-hook
-               'markdown-mode-hook
-               'llvm-mode-hook
-               'conf-toml-mode-hook
-               'nim-mode-hook
-               'typescript-mode-hook
-               'c-ts-mode-hook
-               'c++-ts-mode-hook
-               'cmake-ts-mode-hook
-               'toml-ts-mode-hook
-               'css-ts-mode-hook
-               'js-ts-mode-hook
-               'json-ts-mode-hook
-               'python-ts-mode-hook
-               'bash-ts-mode-hook
-               'typescript-ts-mode-hook
-               ))
-  (add-hook hook #'(lambda () (fingertip-mode 1))))
+		 'ruby-mode-hook
+		 'coffee-mode-hook
+		 'rust-mode-hook
+		 'rust-ts-mode-hook
+		 'qmake-mode-hook
+		 'lua-mode-hook
+		 'swift-mode-hook
+		 'web-mode-hook
+		 'markdown-mode-hook
+		 'llvm-mode-hook
+		 'conf-toml-mode-hook
+		 'nim-mode-hook
+		 'typescript-mode-hook
+		 'c-ts-mode-hook
+		 'c++-ts-mode-hook
+		 'cmake-ts-mode-hook
+		 'toml-ts-mode-hook
+		 'css-ts-mode-hook
+		 'js-ts-mode-hook
+		 'json-ts-mode-hook
+		 'python-ts-mode-hook
+		 'bash-ts-mode-hook
+		 'typescript-ts-mode-hook
+		 ))
+    (add-hook hook #'(lambda () (fingertip-mode 1))))
 
-(define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
-(define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
-(define-key fingertip-mode-map (kbd "{") 'fingertip-open-curly)
-(define-key fingertip-mode-map (kbd ")") 'fingertip-close-round)
-(define-key fingertip-mode-map (kbd "]") 'fingertip-close-bracket)
-(define-key fingertip-mode-map (kbd "}") 'fingertip-close-curly)
-(define-key fingertip-mode-map (kbd "=") 'fingertip-equal)
+  (define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
+  (define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
+  (define-key fingertip-mode-map (kbd "{") 'fingertip-open-curly)
+  (define-key fingertip-mode-map (kbd ")") 'fingertip-close-round)
+  (define-key fingertip-mode-map (kbd "]") 'fingertip-close-bracket)
+  (define-key fingertip-mode-map (kbd "}") 'fingertip-close-curly)
+  (define-key fingertip-mode-map (kbd "=") 'fingertip-equal)
 
-(define-key fingertip-mode-map (kbd "（") 'fingertip-open-chinese-round)
-(define-key fingertip-mode-map (kbd "「") 'fingertip-open-chinese-bracket)
-(define-key fingertip-mode-map (kbd "【") 'fingertip-open-chinese-curly)
-(define-key fingertip-mode-map (kbd "）") 'fingertip-close-chinese-round)
-(define-key fingertip-mode-map (kbd "」") 'fingertip-close-chinese-bracket)
-(define-key fingertip-mode-map (kbd "】") 'fingertip-close-chinese-curly)
+  (define-key fingertip-mode-map (kbd "（") 'fingertip-open-chinese-round)
+  (define-key fingertip-mode-map (kbd "「") 'fingertip-open-chinese-bracket)
+  (define-key fingertip-mode-map (kbd "【") 'fingertip-open-chinese-curly)
+  (define-key fingertip-mode-map (kbd "）") 'fingertip-close-chinese-round)
+  (define-key fingertip-mode-map (kbd "」") 'fingertip-close-chinese-bracket)
+  (define-key fingertip-mode-map (kbd "】") 'fingertip-close-chinese-curly)
 
-(define-key fingertip-mode-map (kbd "%") 'fingertip-match-paren)
-(define-key fingertip-mode-map (kbd "\"") 'fingertip-double-quote)
-(define-key fingertip-mode-map (kbd "'") 'fingertip-single-quote)
+  (define-key fingertip-mode-map (kbd "%") 'fingertip-match-paren)
+  (define-key fingertip-mode-map (kbd "\"") 'fingertip-double-quote)
+  (define-key fingertip-mode-map (kbd "'") 'fingertip-single-quote)
 
-(define-key fingertip-mode-map (kbd "SPC") 'fingertip-space)
-(define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
+  (define-key fingertip-mode-map (kbd "SPC") 'fingertip-space)
+  (define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
 
-(define-key fingertip-mode-map (kbd "M-o") 'fingertip-backward-delete)
-(define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
-(define-key fingertip-mode-map (kbd "C-k") 'fingertip-kill)
+  (define-key fingertip-mode-map (kbd "M-o") 'fingertip-backward-delete)
+  (define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
+  (define-key fingertip-mode-map (kbd "C-k") 'fingertip-kill)
 
-(define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
-(define-key fingertip-mode-map (kbd "M-'") 'fingertip-wrap-single-quote)
-(define-key fingertip-mode-map (kbd "M-[") 'fingertip-wrap-bracket)
-(define-key fingertip-mode-map (kbd "M-{") 'fingertip-wrap-curly)
-(define-key fingertip-mode-map (kbd "M-(") 'fingertip-wrap-round)
-(define-key fingertip-mode-map (kbd "M-)") 'fingertip-unwrap)
+  (define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
+  (define-key fingertip-mode-map (kbd "M-'") 'fingertip-wrap-single-quote)
+  (define-key fingertip-mode-map (kbd "M-[") 'fingertip-wrap-bracket)
+  (define-key fingertip-mode-map (kbd "M-{") 'fingertip-wrap-curly)
+  (define-key fingertip-mode-map (kbd "M-(") 'fingertip-wrap-round)
+  (define-key fingertip-mode-map (kbd "M-)") 'fingertip-unwrap)
 
-(define-key fingertip-mode-map (kbd "M-p") 'fingertip-jump-right)
-(define-key fingertip-mode-map (kbd "M-n") 'fingertip-jump-left)
-(define-key fingertip-mode-map (kbd "M-:") 'fingertip-jump-out-pair-and-newline)
+  (define-key fingertip-mode-map (kbd "M-p") 'fingertip-jump-right)
+  (define-key fingertip-mode-map (kbd "M-n") 'fingertip-jump-left)
+  (define-key fingertip-mode-map (kbd "M-:") 'fingertip-jump-out-pair-and-newline)
 
-(define-key fingertip-mode-map (kbd "C-j") 'fingertip-jump-up)
+  (define-key fingertip-mode-map (kbd "C-j") 'fingertip-jump-up)
   )
 
 ;; (use-package esup
@@ -692,16 +749,3 @@ If you experience freezing, decrease this. If you experience stuttering, increas
          (format "%.2f seconds"
                  (float-time (time-subtract after-init-time before-init-time)))
          gcs-done)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(gn-mode cmake-mode avy evil-multiedit iedit evil-matchit evil-snipe evil-anzu format-all block-nav org-mode consult-yasnippet consult-lsp flymake-elisp-config whitespace4r zenburn-theme yasnippet-snippets winum which-key vundo vertico treesit-auto smartparens shackle rust-mode restart-emacs rainbow-delimiters quickrun projectile-ripgrep popper paredit-everywhere orderless meow markdown-mode marginalia magit lua-mode keycast helpful go-mode evil-surround evil-nerd-commenter evil-escape embark-consult elisp-demos elisp-benchmarks ef-themes dumb-jump doom-modeline dirvish counsel-etags cnfonts citre ace-window)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
